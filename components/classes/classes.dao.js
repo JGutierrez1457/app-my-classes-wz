@@ -1,0 +1,23 @@
+const classesModel = require('./classes.model');
+const mongoose = require('mongoose');
+classesModel.statics.getAllClasses = async function(){
+    const Classes = await this.find().exec();
+    return Classes;
+}
+classesModel.statics.createClass = async function(query){
+    const Class = new this(query);
+    const newClass = await Class.save();
+    return newClass;
+}
+classesModel.statics.deleteClass = async function(query){
+    const classDeleted = await this.findByIdAndRemove(query);
+    return classDeleted;
+}
+
+classesModel.statics.validateId = async function(_id){
+    if(!mongoose.Types.ObjectId.isValid(_id)) return false;
+    const Class = await this.findById(_id);
+    return Class;
+}
+
+module.exports = mongoose.model('Class',classesModel);
