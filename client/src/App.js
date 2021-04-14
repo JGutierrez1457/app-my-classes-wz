@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-
+import React, {useState, useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 import { BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import { AppBar, Button, Container, Drawer, IconButton, MenuItem, 
   MenuList, Slide, Toolbar, Typography, useScrollTrigger } from '@material-ui/core';
@@ -11,6 +11,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import AddIcon from '@material-ui/icons/AddToPhotos';
 import DescriptionIcon from '@material-ui/icons/Description';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
+import { getClasses} from './actions/classes'
 
 
 import useStyles from './styles';
@@ -18,6 +19,12 @@ import useStyles from './styles';
 function App (){
 const [openDrawer, setOpenDrawer] = useState(false);
 const classes = useStyles();
+const dispatch = useDispatch();
+
+useEffect(()=>{
+  dispatch(getClasses());
+  console.log('Effect Home')
+},[dispatch])
 
 const toogleDrawer = (open)=> (event)=>{
 if(event.type === 'keydown' && (event.key==='Tab' || event.key==='Shift')){

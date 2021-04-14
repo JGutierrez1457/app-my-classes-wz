@@ -1,9 +1,10 @@
 import * as api from '../api';
-import { GET_ALL, CREATE } from '../constants/actionTypes';
+import { GET_ALL, CREATE, DELETE } from '../constants/actionTypes';
 
 export const getClasses = ()=>async (dispatch)=>{
     try {
         const { data } = await api.getClasses();
+        console.log(data);
         dispatch({
             type : GET_ALL,
             payload: data
@@ -21,5 +22,16 @@ export const createClasses = (classes)=>async(dispatch)=>{
         })
     } catch (error) {
         console.log(error)
+    }
+}
+export const deleteClass = (id)=>async(dispatch)=>{
+    try {
+        const {data} = await api.deleteClasses(id);
+        dispatch({
+            type:DELETE,
+            payload:data
+        })
+    } catch (error) {
+        console.log(error)        
     }
 }
