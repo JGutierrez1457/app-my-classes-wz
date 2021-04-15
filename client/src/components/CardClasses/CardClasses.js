@@ -3,14 +3,15 @@ import {
     Button, Modal, Grid, Container, IconButton, CardHeader, useMediaQuery, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions
 } from '@material-ui/core'
 import { SpeedDial, SpeedDialAction } from '@material-ui/lab'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import CloseIcon from '@material-ui/icons/Close'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import useStyle from './styles';
+import { useHistory } from 'react-router-dom';
 
-function CardClasses({ classItem,onClickDelete }) {
+function CardClasses({ classItem,onClickDelete,setIdClassEdit }) {
     const classes = useStyle();
     const [openZoom, setOpenZoom] = useState(false);
     const [hiddeSpeedDial, setHiddeSpeedDial] = useState(true);
@@ -20,6 +21,8 @@ function CardClasses({ classItem,onClickDelete }) {
     const [trueConfirmDelete, setTrueConfirmDelete ] = useState(true);
 
     const theme = useTheme();
+    const myRef =useRef();
+    const history = useHistory();
     const small = useMediaQuery(theme.breakpoints.down('xs'));
     useEffect(() => {
         if (small) {
@@ -85,12 +88,12 @@ function CardClasses({ classItem,onClickDelete }) {
 
     return (
         <>
-            <Card style={{ position: 'relative' }}>
-                <div onMouseEnter={handleHiddeSpeedDial(false)}
+            <Card style={{ position: 'relative' }} >
+                <div 
                     onMouseLeave={handleHiddeSpeedDial(true)}
+                    onMouseMove={handleHiddeSpeedDial(false)}
                 >
-                    <CardActionArea onClick={handleOpenZoom}
-                    >
+                    <CardActionArea onClick={handleOpenZoom} innerRef={myRef}>
                         <CardMedia image={classItem.image}
                             title={classItem.title} className={classes.imageClass} />
                     </CardActionArea>
@@ -103,14 +106,21 @@ function CardClasses({ classItem,onClickDelete }) {
                         onOpen={handleOpenSpeedDial}
                         onClose={handleCloseSpeedDial}
                     >
-                        <SpeedDialAction key='edit'
-                            icon={<EditIcon />}
-                            tooltipTitle='Edit Class'
-                        />
+                {setIdClassEdit &&<SpeedDialAction key='edit'
+                    icon={<EditIcon />}
+                    tooltipTitle='Edit'
+                    tooltipOpen={true}
+                    onFocus={()=>myRef.current.focus()}//For Fix AutoFocus to Fab with ESC
+                    onClick={()=>{setIdClassEdit(classItem._id);history.push('/editclass')}}
+                />
+                        }
                         <SpeedDialAction key='delete'
                             icon={<DeleteIcon />}
-                            tooltipTitle='Delete Class'
-                            onClick={handleClickOpenDialogDelete} />
+                            tooltipTitle='Delete'
+                            tooltipOpen={true}
+                            onClick={handleClickOpenDialogDelete}
+                            onFocus={()=>myRef.current.focus()}//For Fix AutoFocus to Fab with ESC
+                            />
                     </SpeedDial>
                 </div>
                 <Dialog open={openDialogDelete} onClose={handleClickCloseDialogDelete} >

@@ -5,6 +5,7 @@ import { AppBar, Button, Container, Drawer, IconButton, MenuItem,
   MenuList, Slide, Toolbar, Typography, useScrollTrigger } from '@material-ui/core';
 import CAddClasses from './containers/CAddClasses';
 import CListClasses from './containers/CListClasses';
+import CEditClasses from './containers/CEditClasses';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
@@ -18,12 +19,12 @@ import useStyles from './styles';
 
 function App (){
 const [openDrawer, setOpenDrawer] = useState(false);
+const [idClassEdit, setIdClassEdit] = useState(null);
 const classes = useStyles();
 const dispatch = useDispatch();
 
 useEffect(()=>{
   dispatch(getClasses());
-  console.log('Effect Home')
 },[dispatch])
 
 const toogleDrawer = (open)=> (event)=>{
@@ -73,9 +74,10 @@ const trigger = useScrollTrigger();
         </Drawer>
         <Container>
         <Switch >
-          <Route exact path='/' render={ props => <CListClasses {...props} isOwn={false}/> } />
-          <Route path='/myclasses' render={ props => <CListClasses {...props} isOwn={true} />}/>
+          <Route exact path='/' render={ props => <CListClasses {...props} isOwn={false} /> } />
+          <Route path='/myclasses' render={ props => <CListClasses {...props} isOwn={true} setIdClassEdit={setIdClassEdit} />}/>
           <Route path='/addclasses' component={CAddClasses} />
+          <Route path='/editclass' render={ props => <CEditClasses {...props} setIdClassEdit={setIdClassEdit} idClassEdit={idClassEdit} />}/>
           <Route render={ ()=><p>Not Found</p>} />
         </Switch>
         </Container>

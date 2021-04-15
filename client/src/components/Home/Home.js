@@ -7,7 +7,7 @@ import AddFabIcon from '@material-ui/icons/Add';
 import useStyle from './styles';
 
 
-function Home({title}) {
+function Home({title,setIdClassEdit}) {
     const classesItems = useSelector( state => state.classes);
    
     const classes = useStyle();
@@ -17,7 +17,7 @@ function Home({title}) {
             <Grid container alignItems='stretch' spacing={3}>
             {classesItems.map( c => (
                 <Grid key={c._id} item xs={12} sm={4} >
-                    <CCardClasses  classItem={c}/>
+                    <CCardClasses  classItem={c} setIdClassEdit={setIdClassEdit}/>
                 </Grid>
                 ))}
             </Grid>

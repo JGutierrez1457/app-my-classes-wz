@@ -7,4 +7,6 @@ router.post('/',classesController.createClasses);
 
 router.delete('/:id',classesController.deleteClass);
 
+router.patch('/:id',classesController.updateClass);
+
 module.exports = router;

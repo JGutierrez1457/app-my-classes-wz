@@ -6,4 +6,5 @@ if(process.env.NODE_ENV!=='production'){
 
 export const getClasses = ()=> axios.get(`${API_URL}/api/classes`);
 export const createClasses = (data)=>axios.post(`${API_URL}/api/classes`,data);
-export const deleteClasses = (id)=>axios.delete(`${API_URL}/api/classes/${id}`)
+export const deleteClasses = (id)=>axios.delete(`${API_URL}/api/classes/${id}`);
+export const updateClasses = (id, data )=> axios.patch(`${API_URL}/api/classes/${id}`,data);

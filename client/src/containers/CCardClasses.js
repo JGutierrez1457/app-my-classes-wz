@@ -8,7 +8,8 @@ const mapDispatchToProps = (dispatch)=>{
 }
 const mapStateToProps = (state, ownProps)=>{
     return {
-        classItem: ownProps.classItem
+        classItem: ownProps.classItem,
+        setIdClassEdit:ownProps.setIdClassEdit
     }
 }
 const CCardClasses = connect(mapStateToProps,mapDispatchToProps)(CardClasses)

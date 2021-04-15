@@ -13,6 +13,10 @@ classesModel.statics.deleteClass = async function(query){
     const classDeleted = await this.findByIdAndRemove(query);
     return classDeleted;
 }
+classesModel.statics.updateClass = async function(_id,query){
+    const classUpdate = await this.findByIdAndUpdate(_id,query,{new:true});
+    return classUpdate;
+}
 
 classesModel.statics.validateId = async function(_id){
     if(!mongoose.Types.ObjectId.isValid(_id)) return false;

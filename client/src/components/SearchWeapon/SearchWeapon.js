@@ -3,14 +3,13 @@ import { FormControl, InputLabel, Select, MenuItem, Grid, CardMedia, Card} from 
 import namesWeapons from '../../constants/nameWeapons';
 import useStyle from './styles';
 
-function SearchWeapon({getNameWeapon}) {
-
+function SearchWeapon({getNameWeapon,name}) {
     const classes = useStyle();
-    const [nameWeapon, setNameWeapon] = useState('');
-    const [imageWeapon, setImageWeapon] = useState('default.png');
+    const [nameWeapon, setNameWeapon] = useState(name?name:'');
     const handleImage = (name)=>{
         return namesWeapons.find( nw => nw.name === name).image;
     }
+    const [imageWeapon, setImageWeapon] = useState(name?handleImage(name):'default.png');
     const handleChange = (e)=>{
         setNameWeapon(e.target.value);
         setImageWeapon(handleImage(e.target.value));
