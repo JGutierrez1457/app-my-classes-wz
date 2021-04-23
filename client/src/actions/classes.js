@@ -9,6 +9,12 @@ export const getClasses = ()=>async (dispatch)=>{
             payload: data
         })
     } catch (error) {
+        if(error.response.status===401){
+            dispatch({
+                type:GET_ALL,
+                payload:[]
+            })
+        }
         console.log(error);
     }
 }

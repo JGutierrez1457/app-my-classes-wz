@@ -2,7 +2,7 @@ const router = require('express').Router();
 const classesController = require('./classes.controller');
 const auth = require('../../middleware/auth');
 
-router.get('/',auth,classesController.getClasses);
+router.get('/',classesController.getClasses);
 
 router.post('/',classesController.createClasses);
 

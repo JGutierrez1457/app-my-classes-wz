@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useEffect} from 'react'
 import {  Drawer, MenuItem, 
     MenuList } from '@material-ui/core';
 
@@ -14,9 +14,8 @@ import { Link , useLocation} from 'react-router-dom';
 const MenuDrawer = ({toogleDrawer,openDrawer }) => {
   const classes = useStyles();
   const location = useLocation();
-  const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('profile')))
+
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('profile')))  
   }, [location])
 
     return (
@@ -26,14 +25,14 @@ const MenuDrawer = ({toogleDrawer,openDrawer }) => {
               <HomeIcon className={classes.menuList} />
               Home
             </MenuItem>
-            {user?(<><MenuItem component={Link} to ='/myclasses'>
+            <MenuItem component={Link} to ='/myclasses'>
               <DescriptionIcon/>
               My Classes
             </MenuItem>
             <MenuItem component={Link} to ='/addclasses'>
               <AddIcon />
               Add Classes
-            </MenuItem></>):null}
+            </MenuItem>
             
           </MenuList>
         </Drawer>

@@ -1,16 +1,22 @@
 import { Typography,Grid,Fab } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React,{useEffect} from 'react'
+import { useSelector,useDispatch } from 'react-redux'
 import CCardClasses from '../../containers/CCardClasses';
 import AddFabIcon from '@material-ui/icons/Add';
 import useStyle from './styles';
 
+import { getClasses} from '../../actions/classes'
 
 function Home({title,setIdClassEdit}) {
-    const classesItems = useSelector( state => state.classes);
-   
+    const token = useSelector(state => state.auth?.authData?.token)
+    const dispatch = useDispatch();
+    
     const classes = useStyle();
+    useEffect(()=>{
+        dispatch(getClasses());
+    },[dispatch,token])
+    const classesItems = useSelector( state => state.classes);
     return (
         <div>
             <Typography variant='h4'>{title}</Typography>
@@ -21,9 +27,10 @@ function Home({title,setIdClassEdit}) {
                 </Grid>
                 ))}
             </Grid>
-            <Fab color="primary" aria-label="add" className={classes.fab} component={Link} to='/addclasses'>
+            {token && <Fab color="primary" aria-label="add" className={classes.fab} component={Link} to='/addclasses'>
               <AddFabIcon/>
-            </Fab>
+            </Fab>}
+            
         </div>
     )
 }

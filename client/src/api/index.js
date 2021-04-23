@@ -4,8 +4,8 @@ if(process.env.NODE_ENV!=='production'){
     API_URL=process.env.REACT_APP_API_URL;
 }
 const API = axios.create({baseURL:API_URL});
-const profileLocalStorage = localStorage.getItem('profile');
 API.interceptors.request.use((req)=>{
+    const profileLocalStorage = localStorage.getItem('token');
     if(profileLocalStorage){
         req.headers.authorization = `Bearer ${JSON.parse(profileLocalStorage)?.token}`
     }
