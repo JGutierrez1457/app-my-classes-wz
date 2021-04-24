@@ -4,6 +4,7 @@ import { GET_ALL, CREATE, DELETE, EDIT } from '../constants/actionTypes';
 export const getClasses = ()=>async (dispatch)=>{
     try {
         const { data } = await api.getClasses();
+        console.log(data);
         dispatch({
             type : GET_ALL,
             payload: data

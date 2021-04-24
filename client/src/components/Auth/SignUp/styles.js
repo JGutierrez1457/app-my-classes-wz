@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 export default makeStyles((theme)=>({
     paper:{
         padding:theme.spacing(4,4),
@@ -15,6 +15,11 @@ export default makeStyles((theme)=>({
         },
         '& .MuiButton-root':{
             margin: theme.spacing(1,2)
+        }
+    },
+    confirmPassword:{
+        '& .MuiFormHelperText-root':{
+            color:'green'
         }
     }
 }))

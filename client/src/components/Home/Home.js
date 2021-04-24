@@ -1,5 +1,5 @@
 import { Typography,Grid,Fab } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link,useHistory } from 'react-router-dom';
 import React,{useEffect} from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import CCardClasses from '../../containers/CCardClasses';
@@ -10,12 +10,13 @@ import { getClasses} from '../../actions/classes'
 
 function Home({title,setIdClassEdit}) {
     const token = useSelector(state => state.auth?.authData?.token)
+    const location = useHistory();
     const dispatch = useDispatch();
     
     const classes = useStyle();
     useEffect(()=>{
         dispatch(getClasses());
-    },[dispatch,token])
+    },[dispatch,token,location])
     const classesItems = useSelector( state => state.classes);
     return (
         <div>

@@ -1,4 +1,5 @@
 const classesDAO = require('./classes.dao');
+const userDAO = require('../users/users.dao');
 
 const classesController = {}
 
@@ -6,15 +7,24 @@ classesController.getClasses = async(req, res)=>{
     try {
         const classes = await classesDAO.getAllClasses();
         if(!classes){return res.status(404).send('Nothing Classes')}
-        console.log(classes.map(c => c.title))
         return res.status(200).send(classes);
     } catch (error) {
         return res.status(500).send(error)
     }
 }
-classesController.createClasses = async(req, res)=>{
-    const classQuery = req.body;
+classesController.getMyClasses = async(req,res)=>{
     try {
+        const classes = await classesDAO.getManyClasses({creator:req.userId});
+        return res.status(200).send(classes);
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
+classesController.createClasses = async(req, res)=>{
+    try {
+    const creator = await userDAO.getUserId({_id:req.userId});
+    const classQuery = {...req.body,creator:creator._id,nameCreator:creator.username};
+    
         const newClass = await classesDAO.createClass(classQuery);
         return res.status(200).send(newClass);
     } catch (error) {

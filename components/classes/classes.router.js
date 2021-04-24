@@ -3,11 +3,12 @@ const classesController = require('./classes.controller');
 const auth = require('../../middleware/auth');
 
 router.get('/',classesController.getClasses);
+router.get('/user',auth,classesController.getMyClasses);
 
-router.post('/',classesController.createClasses);
+router.post('/',auth,classesController.createClasses);
 
-router.delete('/:id',classesController.deleteClass);
+router.delete('/:id',auth,classesController.deleteClass);
 
-router.patch('/:id',classesController.updateClass);
+router.patch('/:id',auth,classesController.updateClass);
 
 module.exports = router;

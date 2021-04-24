@@ -154,11 +154,13 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit }) {
                     <Typography gutterBottom variant='h5' component='h2'>
                         {classItem.title}
                     </Typography>
-                    <Typography variant='body1' color='textSecondary' component='p'>#{classItem.nameWeapon}</Typography>
+                    <Typography variant='body1' color='textSecondary' component='p'>{classItem.nameCreator}</Typography>
                     <Typography variant='body2' color='textSecondary' component='p'>
                         <b>Owner:</b> {classItem.owner}
                         {' '}
                         <b>Mode:</b> {classItem.mode}
+                        {' '}
+                        <b>Weapon:</b> {classItem.nameWeapon}
                     </Typography>
                 </CardContent>
                 <CardActions>

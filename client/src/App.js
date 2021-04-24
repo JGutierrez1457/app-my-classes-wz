@@ -7,6 +7,7 @@ import CAddClasses from './containers/CAddClasses';
 import CListClasses from './containers/CListClasses';
 import CEditClasses from './containers/CEditClasses';
 import CSignIn from './containers/Auth/CSignIn';
+import CSignUp from './containers/Auth/CSignUp';
 
 import NavBar from './components/NavBar/NavBar';
 
@@ -44,12 +45,21 @@ const toogleDrawer = (open)=> (event)=>{
           <Route exact path='/' render={ props => <CListClasses {...props} isOwn={false} /> } />
           <Route exact path='/myclasses' render={props => {
             if(token){return <CListClasses {...props} isOwn={true} setIdClassEdit={setIdClassEdit} />}
-            else{ return <Redirect to={{pathname:'/',state:{ from: props.location}}} />}}}/>
-          <Route exact path='/addclasses' render={props => { if(token){return<CAddClasses {...props}/>}
-            else{ return <Redirect to={{pathname:'/',state:{ from: props.location}}} />}}}/>
-          <Route exact path='/editclass' render={ props => { if(token){return <CEditClasses {...props} setIdClassEdit={setIdClassEdit} idClassEdit={idClassEdit} />}
-            else{ return <Redirect to={{pathname:'/',state:{ from: props.location}}} />}}}/>
-          <Route path='/login' render ={ props => <CSignIn {...props} /> } />
+            return <Redirect to={{pathname:'/',state:{ from: props.location}}} />}}/>
+          <Route exact path='/addclasses' render={props => { 
+            if(token){return<CAddClasses {...props}/>}
+            return <Redirect to={{pathname:'/',state:{ from: props.location}}} />}}/>
+          <Route exact path='/editclass' render={ props => { 
+            if(token){return <CEditClasses {...props} setIdClassEdit={setIdClassEdit} idClassEdit={idClassEdit} />}
+            return <Redirect to={{pathname:'/',state:{ from: props.location}}} />}}/>
+          <Route exact path='/login' render ={ props => {
+            if(!token){return <CSignIn {...props} />}
+           return <Redirect to={{pathname:'/',state:{ from: props.location}}} />} } />
+          <Route exact path='/signup' render = {props => {
+            if(!token){return <CSignUp {...props}/>}
+            return <Redirect to={{pathname:'/',state:{ from: props.location}}} />
+          }}/>
+
           <Route render={ ()=><p>Not Found</p>} />
         </Switch>
         </Container>

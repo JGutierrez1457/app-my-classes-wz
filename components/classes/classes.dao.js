@@ -4,6 +4,10 @@ classesModel.statics.getAllClasses = async function(){
     const Classes = await this.find().exec();
     return Classes;
 }
+classesModel.statics.getManyClasses = async function(query){
+    const Classes = await this.find(query).exec();
+    return Classes;
+}
 classesModel.statics.createClass = async function(query){
     const Class = new this(query);
     const newClass = await Class.save();
