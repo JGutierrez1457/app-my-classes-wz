@@ -12,6 +12,9 @@ export default makeStyles((theme)=>({
     root:{
         '& .MuiTextField-root':{
             margin:theme.spacing(2)
+        },
+        '& .MuiFormControl-root':{
+            margin: theme.spacing(2)
         }
     },
     buttonAccept:{

@@ -8,10 +8,11 @@ import CloseIcon from '@material-ui/icons/Close'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
+import ReportProblemIcon from '@material-ui/icons/ReportProblem';
 import useStyle from './styles';
 import { useHistory } from 'react-router-dom';
 
-function CardClasses({ classItem,onClickDelete,setIdClassEdit }) {
+function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn }) {
     const classes = useStyle();
     const [openZoom, setOpenZoom] = useState(false);
     const [hiddeSpeedDial, setHiddeSpeedDial] = useState(true);
@@ -106,7 +107,7 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit }) {
                         onOpen={handleOpenSpeedDial}
                         onClose={handleCloseSpeedDial}
                     >
-                {setIdClassEdit &&<SpeedDialAction key='edit'
+                {isOwn &&<SpeedDialAction key='edit'
                     icon={<EditIcon />}
                     tooltipTitle='Edit'
                     tooltipOpen={true}
@@ -114,13 +115,22 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit }) {
                     onClick={()=>{setIdClassEdit(classItem._id);history.push('/editclass')}}
                 />
                         }
-                        <SpeedDialAction key='delete'
-                            icon={<DeleteIcon />}
-                            tooltipTitle='Delete'
-                            tooltipOpen={true}
-                            onClick={handleClickOpenDialogDelete}
-                            onFocus={()=>myRef.current.focus()}//For Fix AutoFocus to Fab with ESC
-                            />
+                {isOwn&&<SpeedDialAction key='delete'
+                    icon={<DeleteIcon />}
+                    tooltipTitle='Delete'
+                    tooltipOpen={true}
+                    onClick={handleClickOpenDialogDelete}
+                    onFocus={()=>myRef.current.focus()}//For Fix AutoFocus to Fab with ESC
+                    />
+                }
+                 {!isOwn&&<SpeedDialAction key='report'
+                    icon={<ReportProblemIcon />}
+                    tooltipTitle='Report'
+                    tooltipOpen={true}
+                    onClick={()=>alert('Reporting')}
+                    onFocus={()=>myRef.current.focus()}//For Fix AutoFocus to Fab with ESC
+                    />
+                }
                     </SpeedDial>
                 </div>
                 <Dialog open={openDialogDelete} onClose={handleClickCloseDialogDelete} >

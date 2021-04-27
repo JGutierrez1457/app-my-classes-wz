@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { useSelector} from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import { useSelector, useDispatch} from 'react-redux';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import {  Container, Toolbar } from '@material-ui/core';
 
@@ -10,19 +10,22 @@ import CSignIn from './containers/Auth/CSignIn';
 import CSignUp from './containers/Auth/CSignUp';
 
 import NavBar from './components/NavBar/NavBar';
-
-
-
-
 import MenuDrawer from './components/MenuDrawer/MenuDrawer';
+import { getClasses, myClasses} from './actions/classes'
+
 
 function App (){
 
 const [openDrawer, setOpenDrawer] = useState(false);
 const [idClassEdit, setIdClassEdit] = useState(null);
 
-const token = useSelector(state => state.auth?.authData?.token)
+const dispatch = useDispatch();
 
+const token = useSelector(state => state.auth?.authData?.token)
+useEffect(()=>{
+      dispatch(myClasses())
+      dispatch(getClasses())
+},[dispatch,token])
 
 
 const toogleDrawer = (open)=> (event)=>{
@@ -42,7 +45,7 @@ const toogleDrawer = (open)=> (event)=>{
         {token && <MenuDrawer openDrawer={openDrawer} toogleDrawer={toogleDrawer} /> }
         <Container>
         <Switch >
-          <Route exact path='/' render={ props => <CListClasses {...props} isOwn={false} /> } />
+          <Route exact path='/' render={ props => <CListClasses {...props} isOwn={false} setIdClassEdit={setIdClassEdit}/> } />
           <Route exact path='/myclasses' render={props => {
             if(token){return <CListClasses {...props} isOwn={true} setIdClassEdit={setIdClassEdit} />}
             return <Redirect to={{pathname:'/',state:{ from: props.location}}} />}}/>

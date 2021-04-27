@@ -9,7 +9,8 @@ const mapDispatchToProps = (dispatch)=>{
 const mapStateToProps = (state, ownProps)=>{
     return {
         classItem: ownProps.classItem,
-        setIdClassEdit:ownProps.setIdClassEdit
+        setIdClassEdit:ownProps.setIdClassEdit,
+        isOwn: ownProps.classItem.creator === state.auth.authData?.result?._id
     }
 }
 const CCardClasses = connect(mapStateToProps,mapDispatchToProps)(CardClasses)

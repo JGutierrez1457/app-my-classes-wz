@@ -5,7 +5,8 @@ const mapStateToProps = (state, ownProps)=>{
     const title = ownProps.isOwn?'Your Classes':'Home';
     return {
         title: title,
-        setIdClassEdit: ownProps.isOwn?ownProps.setIdClassEdit:false
+        setIdClassEdit: ownProps.setIdClassEdit,
+        isOwn: ownProps.isOwn
     }
 }
 

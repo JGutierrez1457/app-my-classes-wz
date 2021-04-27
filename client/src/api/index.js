@@ -14,6 +14,7 @@ API.interceptors.request.use((req)=>{
 
 
 export const getClasses = ()=> API.get(`/api/classes`);
+export const myClasses = ()=> API.get(`/api/classes/myclasses`);
 export const createClasses = (data)=>API.post(`/api/classes`,data);
 export const deleteClasses = (id)=>API.delete(`/api/classes/${id}`);
 export const updateClasses = (id, data )=> API.patch(`/api/classes/${id}`,data);

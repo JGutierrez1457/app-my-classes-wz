@@ -9,7 +9,7 @@ function AddClasses({onSubmit}) {
     const classes = useStyle();
     const history = useHistory();
     const [postData, setPostData] = useState({
-        title:'',nameWeapon:'',creator:'JG',owner:'',mode:'',image:'',public:''
+        title:'',nameWeapon:'',owner:'',mode:'',image:'',public:''
     })
     const handleSubmit =(e)=>{
         e.preventDefault();
@@ -17,7 +17,7 @@ function AddClasses({onSubmit}) {
     }
     const clear = ()=>{
         setPostData({
-            title:'',nameWeapon:'',creator:'JG',owner:'',mode:'',image:'',public:''
+            title:'',nameWeapon:'',owner:'',mode:'',image:'',public:''
         })
     }
     const setNameWeapon = (name)=>{

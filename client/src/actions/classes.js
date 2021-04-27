@@ -1,10 +1,9 @@
 import * as api from '../api';
-import { GET_ALL, CREATE, DELETE, EDIT } from '../constants/actionTypes';
+import { GET_ALL, CREATE, DELETE, EDIT, MY_CLASSES, MY_CLASS_CREATE, MY_CLASS_DELETE, MY_CLASS_EDIT } from '../constants/actionTypes';
 
 export const getClasses = ()=>async (dispatch)=>{
     try {
         const { data } = await api.getClasses();
-        console.log(data);
         dispatch({
             type : GET_ALL,
             payload: data
@@ -19,11 +18,34 @@ export const getClasses = ()=>async (dispatch)=>{
         console.log(error);
     }
 }
+export const myClasses = ()=>async (dispatch)=>{
+    try {
+        const { data } = await api.myClasses();
+        dispatch({
+            type : MY_CLASSES,
+            payload: data
+        })
+    } catch (error) {
+        if(error.response.status===401){
+            dispatch({
+                type:MY_CLASSES,
+                payload:[]
+            })
+        }
+        console.log(error);
+    }
+}
 export const createClasses = (classes)=>async(dispatch)=>{
     try {
         const { data } = await api.createClasses(classes);
+        if(data.public){
+            dispatch({
+                type:CREATE,
+                payload: data
+            })
+        }
         dispatch({
-            type:CREATE,
+            type:MY_CLASS_CREATE,
             payload: data
         })
     } catch (error) {
@@ -37,6 +59,10 @@ export const deleteClass = (id)=>async(dispatch)=>{
             type:DELETE,
             payload:data
         })
+        dispatch({
+            type:MY_CLASS_DELETE,
+            payload:data
+        })
     } catch (error) {
         console.log(error)        
     }
@@ -46,6 +72,10 @@ export const updateClass = (id,dataEdit)=>async(dispatch)=>{
         const { data } = await api.updateClasses(id,dataEdit);
         dispatch({
             type:EDIT,
+            payload:data
+        })
+        dispatch({
+            type:MY_CLASS_EDIT,
             payload:data
         })
     } catch (error) {
