@@ -5,7 +5,7 @@ const classesController = {}
 
 classesController.getClasses = async(req, res)=>{
     try {
-        const classes = await classesDAO.getAllClasses();
+        const classes = await classesDAO.getManyClasses({public:true});
         if(!classes){return res.status(404).send('Nothing Classes')}
         return res.status(200).send(classes);
     } catch (error) {

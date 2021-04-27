@@ -1,9 +1,6 @@
 const classesModel = require('./classes.model');
 const mongoose = require('mongoose');
-classesModel.statics.getAllClasses = async function(){
-    const Classes = await this.find().exec();
-    return Classes;
-}
+
 classesModel.statics.getManyClasses = async function(query){
     const Classes = await this.find(query).exec();
     return Classes;
