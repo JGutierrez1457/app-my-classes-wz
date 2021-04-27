@@ -9,11 +9,13 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ReportProblemIcon from '@material-ui/icons/ReportProblem';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import useStyle from './styles';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 
-function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn }) {
+function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn ,showPrivacity}) {
     const classes = useStyle();
     const [openZoom, setOpenZoom] = useState(false);
     const [hiddeSpeedDial, setHiddeSpeedDial] = useState(true);
@@ -166,6 +168,8 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn }) {
                 <CardContent>
                     <Typography gutterBottom variant='h5' component='h2'>
                         {classItem.title}
+                        {' '}
+                        {showPrivacity?(classItem.public?<VisibilityIcon fontSize='small'/>:<VisibilityOffIcon fontSize='small'/>):<></>}
                     </Typography>
                     <Typography variant='body1' color='textSecondary' component='p'>{classItem.nameCreator}</Typography>
                     <Typography variant='body2' color='textSecondary' component='p'>

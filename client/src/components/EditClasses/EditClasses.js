@@ -50,7 +50,7 @@ function EditClasses({setIdClassEdit,idClassEdit,onClickUpdate}) {
                 <TextField value={editClass.owner} label='Class Owner' onChange={(e)=>setEditClass({...editClass,owner:e.target.value})} fullWidth />
                 <TextField value={editClass.mode} label='Game Mode' onChange={(e)=>setEditClass({...editClass,mode:e.target.value})} fullWidth />
                 <FileBase type='file' multiple={false} onDone={({base64})=>setEditClass({...editClass,image:base64})} />
-                <CardMedia image={editClass.image} title={editClass.title} className={classes.mediaCard}/>
+                {editClass.image&&<CardMedia image={editClass.image} title={editClass.title} className={classes.mediaCard}/>}
                 <Button className={classes.buttonAccept} variant='contained' color='primary' type='submit' size='large' fullWidth>Accept</Button>
                 <Button variant='contained' color='secondary' size='small' onClick={handleCancel} fullWidth>Cancel</Button>
             </form>

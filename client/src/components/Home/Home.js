@@ -22,12 +22,12 @@ function Home({title,setIdClassEdit,isOwn}) {
             <Grid container alignItems='stretch' spacing={3}>
             {isOwn?myclasses.map( c => (
                 <Grid key={c._id} item xs={12} sm={4} >
-                    <CCardClasses  classItem={c} setIdClassEdit={setIdClassEdit}/>
+                    <CCardClasses  classItem={c} setIdClassEdit={setIdClassEdit} showPrivacity={true}/>
                 </Grid>
                 )):
                 allclasses.map( c => (
                     <Grid key={c._id} item xs={12} sm={4} >
-                        <CCardClasses  classItem={c} setIdClassEdit={setIdClassEdit}/>
+                        <CCardClasses  classItem={c} setIdClassEdit={setIdClassEdit} showPrivacity={false}/>
                     </Grid>
                     ))}
             </Grid>
