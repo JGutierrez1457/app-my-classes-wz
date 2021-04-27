@@ -1,4 +1,4 @@
-import { Typography,Grid,Fab } from '@material-ui/core';
+import { Typography,Grid,Fab, Slide,useScrollTrigger } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import React from 'react'
 import { useSelector } from 'react-redux'
@@ -10,7 +10,8 @@ import useStyle from './styles';
 function Home({title,setIdClassEdit,isOwn}) {
     const allclasses = useSelector( state => state.classes);
     const myclasses = useSelector( state => state.myclasses);
-      
+    const trigger = useScrollTrigger();
+
     const token = useSelector(state => state.auth?.authData?.token)
     
     const classes = useStyle();
@@ -30,9 +31,11 @@ function Home({title,setIdClassEdit,isOwn}) {
                     </Grid>
                     ))}
             </Grid>
+            <Slide appear={true} direction='up' in={!trigger}>
             {token && <Fab color="primary" aria-label="add" className={classes.fab} component={Link} to='/addclasses'>
               <AddFabIcon/>
             </Fab>}
+            </Slide>
             
         </div>
     )

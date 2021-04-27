@@ -23,7 +23,9 @@ const dispatch = useDispatch();
 
 const token = useSelector(state => state.auth?.authData?.token)
 useEffect(()=>{
-      dispatch(myClasses())
+  if(token){
+        dispatch(myClasses())
+      }
       dispatch(getClasses())
 },[dispatch,token])
 

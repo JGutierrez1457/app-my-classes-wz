@@ -11,6 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import ReportProblemIcon from '@material-ui/icons/ReportProblem';
 import useStyle from './styles';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux'
 
 function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn }) {
     const classes = useStyle();
@@ -25,6 +26,8 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn }) {
     const myRef =useRef();
     const history = useHistory();
     const small = useMediaQuery(theme.breakpoints.down('xs'));
+    const token = useSelector(state => state.auth?.authData?.token)
+
     useEffect(() => {
         if (small) {
             setHiddeSpeedDial(false)
@@ -98,7 +101,7 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn }) {
                         <CardMedia image={classItem.image}
                             title={classItem.title} className={classes.imageClass} />
                     </CardActionArea>
-                    <SpeedDial className={classes.moreHoriz}
+                    {token&&<SpeedDial className={classes.moreHoriz}
                         ariaLabel="Speedial for edit and delete class"
                         icon={<MoreHorizIcon />}
                         hidden={hiddeSpeedDial}
@@ -131,7 +134,7 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn }) {
                     onFocus={()=>myRef.current.focus()}//For Fix AutoFocus to Fab with ESC
                     />
                 }
-                    </SpeedDial>
+                    </SpeedDial>}
                 </div>
                 <Dialog open={openDialogDelete} onClose={handleClickCloseDialogDelete} >
                     <DialogTitle id="form-dialog-title">Delete Class</DialogTitle>
