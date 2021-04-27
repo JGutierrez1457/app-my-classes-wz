@@ -28,7 +28,6 @@ function SearchWeapon({getNameWeapon,name}) {
                 onChange={handleChange}
                 >
                     {namesWeapons.map( nw =>(<MenuItem key={nw.name} value={nw.name}>{nw.name}</MenuItem>))}
-                <MenuItem></MenuItem>
             </Select>
         </FormControl>
             </Grid>

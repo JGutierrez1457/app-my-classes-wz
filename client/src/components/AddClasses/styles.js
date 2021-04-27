@@ -12,7 +12,16 @@ export default makeStyles((theme)=>({
     root:{
         '& .MuiTextField-root':{
             margin: theme.spacing(2)
+        },
+        '& .MuiFormControl-root':{
+            margin: theme.spacing(2)
         }
+    },
+    mediaCard:{
+        width:'80%',
+        height:200,
+        backgroundSize:'100% 100%',
+        margin:theme.spacing(1,0)
     },
     buttonAccept:{
         margin:theme.spacing(2,0)
