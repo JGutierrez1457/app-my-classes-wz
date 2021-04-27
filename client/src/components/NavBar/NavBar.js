@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Slide, AppBar, Toolbar, IconButton,Button,Typography, useScrollTrigger} from '@material-ui/core';
 
@@ -9,6 +9,7 @@ import useStyle from './styles';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {LOGOUT} from '../../constants/actionTypes';
+import { decode } from 'jsonwebtoken';
 
 
 const NavBar = ({toogleDrawer}) => {
@@ -23,6 +24,12 @@ const NavBar = ({toogleDrawer}) => {
       });
       history.push('/');
     }
+    useEffect(()=>{
+      if(token){
+        const decodedToken = decode(token);
+        if( decodedToken.exp * 1000 < new Date().getTime()) logout()
+      }
+    })
     
     return (
         <Slide appear={false} direction='down' in={!trigger}>
