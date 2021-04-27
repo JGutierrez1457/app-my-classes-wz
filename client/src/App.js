@@ -55,7 +55,7 @@ const toogleDrawer = (open)=> (event)=>{
             if(token){return<CAddClasses {...props}/>}
             return <Redirect to={{pathname:'/',state:{ from: props.location}}} />}}/>
           <Route exact path='/editclass' render={ props => { 
-            if(token){return <CEditClasses {...props} setIdClassEdit={setIdClassEdit} idClassEdit={idClassEdit} />}
+            if(token&&idClassEdit){return <CEditClasses {...props} setIdClassEdit={setIdClassEdit} idClassEdit={idClassEdit} />}
             return <Redirect to={{pathname:'/',state:{ from: props.location}}} />}}/>
           <Route exact path='/login' render ={ props => {
             if(!token){return <CSignIn {...props} />}

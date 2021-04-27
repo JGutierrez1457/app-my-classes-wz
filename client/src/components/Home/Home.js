@@ -31,11 +31,11 @@ function Home({title,setIdClassEdit,isOwn}) {
                     </Grid>
                     ))}
             </Grid>
-            <Slide appear={true} direction='up' in={!trigger}>
-            {token && <Fab color="primary" aria-label="add" className={classes.fab} component={Link} to='/addclasses'>
+            {token && <Slide appear={true} direction='up' in={!trigger}>
+            <Fab color="primary" aria-label="add" className={classes.fab} component={Link} to='/addclasses'>
               <AddFabIcon/>
-            </Fab>}
-            </Slide>
+            </Fab>
+            </Slide>}
             
         </div>
     )

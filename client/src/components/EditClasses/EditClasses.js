@@ -23,7 +23,7 @@ function EditClasses({setIdClassEdit,idClassEdit,onClickUpdate}) {
     }
     const clearEditClass=()=>{
         setEditClass({ title:'',nameWeapon:'',owner:'',mode:'',image:'',public:''});
-        setIdClassEdit({title:'',nameWeapon:'',owner:'',mode:'',image:'',public:''});
+        setIdClassEdit(null);
     }
     const handleCancel=()=>{
         clearEditClass();
@@ -57,5 +57,4 @@ function EditClasses({setIdClassEdit,idClassEdit,onClickUpdate}) {
         </Paper>
     )
 }
-
 export default EditClasses
