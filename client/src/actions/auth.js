@@ -19,7 +19,8 @@ export const signup = (dataUser)=> async (dispatch)=>{
         dispatch({
             type:AUTH,data
         })
+        return 'authenticated';
     } catch (error) {
-        console.log(error);
+        return error.response.data?.message;
     }
 }

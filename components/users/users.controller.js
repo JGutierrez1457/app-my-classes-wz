@@ -31,10 +31,10 @@ userController.signup= async (req,res)=>{
     const { username, email, password,avatar} = req.body;
     
     try {
-        const existEmail = await userDAO.getUser({email});
-        if(existEmail) return res.status(400).json({message:'Email already register.'});
         const existUserName = await userDAO.getUser({username});
         if(existUserName) return res.status(400).json({message:'Username in use.'});
+        const existEmail = await userDAO.getUser({email});
+        if(existEmail) return res.status(400).json({message:'Email already register.'});
 
 /*         if(password !== confirmPassword)return res.status(400).json({message:"Passwords don't match"}); */
         const salt = await bcrypt.genSalt(10);
@@ -43,6 +43,7 @@ userController.signup= async (req,res)=>{
         const token = jwt.sign({email: newUser.email, id: newUser._id},'test',{expiresIn:'1h'});
         res.status(200).json({result: newUser,token});
     } catch (error) {
+        console.log(error)
         res.status(500).json({message:'Something went wrongs'});
     }
 }
