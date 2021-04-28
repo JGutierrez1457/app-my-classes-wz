@@ -1,14 +1,15 @@
-import { Button, InputAdornment, Paper, TextField, Typography,IconButton } from '@material-ui/core'
+import { Button, InputAdornment, Paper, TextField, Typography,IconButton, CardMedia } from '@material-ui/core'
 
 import React, { useEffect, useState } from 'react'
 import useStyle from './styles'
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { useHistory } from 'react-router';
+import FileBase64 from 'react-file-base64';
 
 const SignUp = ({handleSubmit}) => {
     const classes = useStyle();
-    const [userForm, setUserForm ] = useState({username:'',email:'',password:''});
+    const [userForm, setUserForm ] = useState({username:'',email:'',password:'',avatar:''});
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errorMatch, setErrorMatch] = useState({message:'',error:false});
     const [showPassword, setShowPassword ] = useState(false)
@@ -43,7 +44,13 @@ const SignUp = ({handleSubmit}) => {
         <Paper className={classes.paper}>
             <Typography variant='h6' align='center' >You can Register Here</Typography>
             <form className={`${classes.root} ${classes.form}`} onSubmit={onSubmit}>
-            <TextField name='username' type='text' variant='outlined' label='Your UserName' onChange={handleChange} fullWidth autoFocus required />
+            <div className={classes.DataAvatar} >
+            <TextField name='username' type='text' variant='outlined' label='Your UserName' onChange={handleChange} autoFocus required />
+            <div className={classes.fileAvatar}>
+            <CardMedia className={classes.avatarMedia}  image={userForm.avatar?userForm.avatar:process.env.PUBLIC_URL+'/avatar/default.png'}/>
+            <FileBase64 type='file' multiple={false} onDone={({base64})=>setUserForm({...userForm,avatar:base64})} />
+            </div>
+            </div>
             <TextField name='email' type='email' variant='outlined' label='Your Email' onChange={handleChange}  fullWidth  required />
             <TextField name='password' 
                         type={showPassword?'text':'password'} 

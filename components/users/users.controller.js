@@ -28,7 +28,7 @@ userController.signin= async (req,res)=>{
     }
 }
 userController.signup= async (req,res)=>{
-    const { username, email, password} = req.body;
+    const { username, email, password,avatar} = req.body;
     
     try {
         const existEmail = await userDAO.getUser({email});
@@ -39,7 +39,7 @@ userController.signup= async (req,res)=>{
 /*         if(password !== confirmPassword)return res.status(400).json({message:"Passwords don't match"}); */
         const salt = await bcrypt.genSalt(10);
         const hashedPassword =  await bcrypt.hash(password,salt);
-        const newUser = await userDAO.createUser({username,email, password: hashedPassword });
+        const newUser = await userDAO.createUser({username,email, password: hashedPassword,avatar });
         const token = jwt.sign({email: newUser.email, id: newUser._id},'test',{expiresIn:'1h'});
         res.status(200).json({result: newUser,token});
     } catch (error) {
