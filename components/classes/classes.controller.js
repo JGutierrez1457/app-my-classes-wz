@@ -5,7 +5,7 @@ const classesController = {}
 
 classesController.getClasses = async(req, res)=>{
     try {
-        const classes = await classesDAO.getManyClasses({public:true});
+        const classes = await classesDAO.getManyClasses();
         if(!classes){return res.status(404).send('Nothing Classes')}
         return res.status(200).send(classes);
     } catch (error) {
@@ -23,7 +23,7 @@ classesController.getMyClasses = async(req,res)=>{
 classesController.createClasses = async(req, res)=>{
     try {
     const creator = await userDAO.getUserId({_id:req.userId});
-    const classQuery = {...req.body,creator:creator._id,nameCreator:creator.username};
+    const classQuery = {...req.body,creator:creator._id,nameCreator:creator.username,avatarCreator:creator.avatar};
     
         const newClass = await classesDAO.createClass(classQuery);
         return res.status(200).send(newClass);
