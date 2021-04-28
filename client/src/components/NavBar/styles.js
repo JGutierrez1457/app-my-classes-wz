@@ -7,15 +7,16 @@ export default makeStyles((theme)=>({
     profile:{
         display:'flex',
         justifyContent:'space-between',
-        width:'170px'
     },
     white:{
         color: theme.palette.getContrastText(indigo[50]),
-        backgroundColor: indigo[50]
+        backgroundColor: indigo[50],
+        marginRight:theme.spacing(1)
     },
     userName: {
         display: 'flex',
         alignItems: 'center',
+        fontSize:'1.20rem',
     },
     [theme.breakpoints.down('xs')]:{
         toolTitle:{

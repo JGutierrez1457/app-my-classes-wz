@@ -1,6 +1,6 @@
 import {
     Card, CardActionArea, CardActions, CardContent, CardMedia, Typography,
-    Button, Modal, Grid, Container, IconButton, CardHeader, useMediaQuery, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions
+    Button, Modal, Grid, Container, IconButton, CardHeader, useMediaQuery, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Avatar
 } from '@material-ui/core'
 import { SpeedDial, SpeedDialAction } from '@material-ui/lab'
 import React, { useEffect, useRef, useState } from 'react'
@@ -12,7 +12,7 @@ import ReportProblemIcon from '@material-ui/icons/ReportProblem';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import useStyle from './styles';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 
 function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn ,showPrivacity}) {
@@ -181,9 +181,17 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn ,showPrivac
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size='small' color='primary'>
-                        {classItem.creator}
-                    </Button>
+                    <div className={classes.containerAvatar}>
+                    <Avatar 
+                        className={classes.avatarCreator} 
+                        alt={classItem.nameCreator} 
+                        src={classItem.avatarCreator}
+                        component={Link}
+                        to='/'
+                        title={classItem.nameCreator}
+                        />
+                        <Typography variant='h6' className={classes.avatarNameCreator}>{classItem.nameCreator}</Typography>
+                    </div>
                 </CardActions>
             </Card>
             <Modal open={openZoom} onClose={handleCloseZoom} >
