@@ -1,8 +1,13 @@
 const router = require('express').Router();
 const userController = require('./users.controller');
+const auth = require('../../middleware/auth');
 
-router.post('/signin',userController.signin);
-router.post('/signup',userController.signup);
+router.get('/',userController.getUsers);
+
+router.patch('/edit/profile',auth,userController.editProfile);
+router.patch('/edit/email',auth,userController.editEmail);
+router.patch('/edit/security',auth,userController.editPassword);
+
 router.delete('/:id/delete',userController.deleteUser);
-router.get('/',userController.getUsers)
-module.exports = router;
+
+module.exports= router;

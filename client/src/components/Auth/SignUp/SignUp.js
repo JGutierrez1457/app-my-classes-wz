@@ -1,6 +1,6 @@
 import { Button, InputAdornment, Paper, TextField, Typography,IconButton, CardMedia } from '@material-ui/core'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import useStyle from './styles'
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -9,9 +9,7 @@ import FileBase64 from 'react-file-base64';
 
 const SignUp = ({handleSubmit}) => {
     const classes = useStyle();
-    const [userForm, setUserForm ] = useState({username:'',email:'',password:''});
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [errorMatch, setErrorMatch] = useState({message:'',error:false});
+    const [userForm, setUserForm ] = useState({username:'',email:'',password:'',confirmPassword:''});
     const [showPassword, setShowPassword ] = useState(false)
     const [ errorForm, setErrorForm ]= useState(false);
 
@@ -24,10 +22,7 @@ const SignUp = ({handleSubmit}) => {
         setUserForm({...userForm,[e.target.name]:e.target.value})
         setErrorForm(false);
     }
-    const handleChangeConfirm= (e)=>{
-        setConfirmPassword(e.target.value)
-        setErrorForm(false);
-    }
+  
     const onSubmit = (e)=>{
         e.preventDefault();
         handleSubmit(userForm).then(v =>validateSubmit(v)).finally(()=>handleCancel);
@@ -36,23 +31,12 @@ const SignUp = ({handleSubmit}) => {
         setShowPassword(prevstate => !prevstate)
     }
     const handleCancel = ()=>{
-        setUserForm({username:'',email:'',password:''});
-        setConfirmPassword('');
-        setErrorMatch({message:'',error:false});
+        setUserForm({username:'',email:'',password:'',confirmPassword:''});
         setShowPassword(false);
         setErrorForm(false)
         history.push('/');
     }
-    useEffect(()=>{
-        if(confirmPassword!=='' && userForm.password!==''){
-            if(confirmPassword!==userForm.password){
-                setErrorMatch({message:"Passwords don't match",error:true})
-                return
-            }
-            setErrorMatch({message:'Passwords Match',error:false})
-
-        }
-    },[confirmPassword,userForm])
+  
     
     return (
         <Paper className={classes.paper}>
@@ -83,11 +67,10 @@ const SignUp = ({handleSubmit}) => {
                             }
                         }
                         fullWidth  required />
-            <TextField error={errorMatch.error} helperText={errorMatch.message} 
+            <TextField error={errorForm==="Passwords don't match"} helperText={errorForm==="Passwords don't match"?errorForm:""} 
                 name='confirmPassword' type='password' 
                 variant='outlined' label='Confirm your Password' 
-                onChange={handleChangeConfirm} 
-                className={errorMatch.message==='Passwords Match'?classes.confirmPassword:''} 
+                onChange={handleChange} 
                 fullWidth  required />
             <Button type='submit' variant='contained' color='primary' size='large' fullWidth>Register</Button>
             <Button variant='contained' color='secondary' size='small' onClick={handleCancel} fullWidth>Cancel</Button>

@@ -6,7 +6,7 @@ const classesSchema = new Schema({
     nameCreator: { type:String, trim: true, unique: false, required: true},
     owner: { type: String, trim: true, unique: false, required: true },
     mode: { type : String, trim: true, unique: false, required: false,default:'Warzone'},
-    avatarCreator: { type: String, required: true, unique: false },
+    avatarCreator: { type: String, required: false, unique: false },
     image: { type: String, trim: true, unique: false, required: true},
     public: { type: Boolean, required: true},
     likes : { type: [String], trim: true, unique: false, required: false, default:[]}

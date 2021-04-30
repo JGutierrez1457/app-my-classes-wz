@@ -14,6 +14,7 @@ if(process.env.NODE_ENV!=='production'){
 }
 
 app.use('/api/classes/',require('../components/classes/classes.router'));
-app.use('/api/auth/',require('../components/users/users.router'));
+app.use('/api/auth/',require('../components/users/authUsers.router'));
+app.use('/api/users/',require('../components/users/users.router'))
 
 module.exports = app;
