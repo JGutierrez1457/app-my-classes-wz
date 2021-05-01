@@ -23,7 +23,7 @@ classesController.getMyClasses = async(req,res)=>{
 classesController.createClasses = async(req, res)=>{
     try {
     const creator = await userDAO.getUserId({_id:req.userId});
-    const classQuery = {...req.body,creator:creator._id,nameCreator:creator.username,avatarCreator:creator.avatar};
+    const classQuery = {...req.body,creator:{id:creator._id, username: creator.username, avatar: creator.avatar }};
     
         const newClass = await classesDAO.createClass(classQuery);
         return res.status(200).send(newClass);

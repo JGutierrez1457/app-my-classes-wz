@@ -171,7 +171,7 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn ,showPrivac
                         {' '}
                         {showPrivacity?(classItem.public?<VisibilityIcon fontSize='small'/>:<VisibilityOffIcon fontSize='small'/>):<></>}
                     </Typography>
-                    <Typography variant='body1' color='textSecondary' component='p'>{classItem.nameCreator}</Typography>
+                    <Typography variant='body1' color='textSecondary' component='p'>{classItem.creator.username}</Typography>
                     <Typography variant='body2' color='textSecondary' component='p'>
                         <b>Owner:</b> {classItem.owner}
                         {' '}
@@ -184,13 +184,13 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn ,showPrivac
                     <div className={classes.containerAvatar}>
                     <Avatar 
                         className={classes.avatarCreator} 
-                        alt={classItem.nameCreator} 
-                        src={classItem.avatarCreator}
+                        alt={classItem.creator.username} 
+                        src={classItem.creator.avatar}
                         component={Link}
                         to='/'
-                        title={classItem.nameCreator}
+                        title={classItem.creator.username}
                         />
-                        <Typography variant='h6' className={classes.avatarNameCreator}>{classItem.nameCreator}</Typography>
+                        <Typography variant='h6' className={classes.avatarNameCreator}>{classItem.creator.username}</Typography>
                     </div>
                 </CardActions>
             </Card>
