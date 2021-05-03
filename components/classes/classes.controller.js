@@ -13,7 +13,6 @@ classesController.getClasses = async(req, res)=>{
     }
 }
 classesController.getMyClasses = async(req,res)=>{
-    console.log(req.userId)
     try {
         const classes = await classesDAO.getManyClasses({'creator.id':req.userId});
         return res.status(200).send(classes);

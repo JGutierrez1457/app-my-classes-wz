@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { Slide, AppBar, Toolbar, IconButton,Typography, useScrollTrigger, Avatar, Button, Menu, MenuItem, Popper, MenuList, Divider, Paper, ClickAwayListener} from '@material-ui/core';
+import { Slide, AppBar, Toolbar, IconButton,Typography, useScrollTrigger, Avatar, Button, MenuItem, Popper, MenuList, Divider, Paper, ClickAwayListener} from '@material-ui/core';
 
 import { Link, useHistory } from 'react-router-dom';
 
 import MenuIcon from '@material-ui/icons/Menu';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
 import useStyle from './styles';
 
@@ -26,6 +24,10 @@ const NavBar = ({toogleDrawer}) => {
     const [ openMenu, setOpenMenu ] = useState(false);
     const anchorRef = useRef(null);
     const avatarRef = useRef(null);
+    useEffect(()=>{
+    if(trigger){
+      setOpenMenu(false)
+    }},[trigger])
 
     const handleToggleMenu = ()=>{
       setOpenMenu((prevOpen)=> !prevOpen);
@@ -45,18 +47,22 @@ const NavBar = ({toogleDrawer}) => {
 
     const prevOpen = useRef(openMenu);
     useEffect(() => {
-      if (prevOpen.current === true && openMenu === false) {
+      if (prevOpen.current === true && openMenu === false &&token) {
         anchorRef.current.focus();
       }
   
       prevOpen.current = openMenu;
-    }, [openMenu]);
+    }, [openMenu,token]);
+
     const logout = ()=>{
       dispatch({
-        type:LOGOUT
-      });
-      history.push('/');
-    }
+        type:LOGOUT 
+      })
+      setOpenMenu(false)
+    history.push('/')
+  }
+
+  
     useEffect(()=>{
       if(token){
         const decodedToken = decode(token);
@@ -76,12 +82,13 @@ const NavBar = ({toogleDrawer}) => {
             </Button>
             {token?(<div className={classes.profile}>
               <IconButton size='small' className={classes.menuUser}  onClick={handleToggleMenu} ref={anchorRef}>
-              <Avatar alt={user.username} src={user.avatar} className={classes.white}  />
+              <Avatar alt={user.username} src={user.avatar} className={classes.white}   />
                 <ArrowDropDownIcon />
               </IconButton>
               
               <Popper 
                 id='menu-sign'
+                className={classes.poper}
                 open={openMenu}
                 anchorEl={anchorRef.current}
                 keepMounted
@@ -94,22 +101,17 @@ const NavBar = ({toogleDrawer}) => {
                   }
                 }}
               >
-              <svg  className={classes.arrow} ref={avatarRef} viewBox='0 0 8 4'>
-                <path  d='M 0 4 L4 0 L8 4 Z'></path>
-              </svg>
-                <Paper>
+              {true&&<span ref={avatarRef} className={classes.spanArrow}></span>}
+                <Paper className={classes.paper}>
                   <ClickAwayListener onClickAway={handleCloseMenu}>
                     <MenuList onKeyDown={handleListKeyDown}>
                       <MenuItem onClick={handleCloseMenu}>Sign in as {user.username}</MenuItem>
                       <Divider/>
-                      <MenuItem onClick={handleCloseMenu}>Sign in as {user.username}</MenuItem> 
+                      <MenuItem onClick={logout} component={Button}>Sign Out</MenuItem> 
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
               </Popper>
-              {/* <IconButton color='inherit' style={{borderRadius:'100%'}} onClick={logout}>
-                <ExitToAppIcon/>
-              </IconButton> */}
             </div>
               ):(
               <Button color='inherit' style={{borderRadius:'0%'}} component={Link} to='/login'>

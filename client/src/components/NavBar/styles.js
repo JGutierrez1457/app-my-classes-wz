@@ -19,12 +19,46 @@ export default makeStyles((theme)=>({
       width:theme.spacing(1),
       height:theme.spacing(0.5),
       display:'block',
+      position:'absolute',
       fontSize:'1.5rem',
       flexShrink:0,
       userSelect:'none',
       fill:'white',
-      marginLeft:theme.spacing(14)
     },
+    paper: {
+        maxWidth: 400,
+        overflow: 'auto',
+        marginTop: '0.5em'
+      }
+    ,
+    poper:{
+        zIndex: 1,
+        '&[x-placement*="bottom"] $spanArrow': {
+          top: 0,
+          left: 0,
+          marginTop: '0.1em',
+          width: '3em',
+          height: '1em',
+          '&::before': {
+            borderWidth: '0 1em 1em 1em',
+            borderColor: `transparent transparent ${theme.palette.background.paper} transparent`,
+          }}
+    },
+    spanArrow:{
+        position: 'absolute',
+        fontSize: 7,
+        width: '3em',
+        height: '3em',
+         '&::before': {
+            content: '""',
+            margin: 'auto',
+            display: 'block',
+            width: 0,
+            height: 0,
+            borderStyle: 'solid',
+        }
+    }
+    ,
     menuUser:{
         borderRadius:'0%',
         padding:theme.spacing(0)
