@@ -171,7 +171,6 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn ,showPrivac
                         {' '}
                         {showPrivacity?(classItem.public?<VisibilityIcon fontSize='small'/>:<VisibilityOffIcon fontSize='small'/>):<></>}
                     </Typography>
-                    <Typography variant='body1' color='textSecondary' component='p'>{classItem.creator.username}</Typography>
                     <Typography variant='body2' color='textSecondary' component='p'>
                         <b>Owner:</b> {classItem.owner}
                         {' '}

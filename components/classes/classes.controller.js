@@ -13,8 +13,9 @@ classesController.getClasses = async(req, res)=>{
     }
 }
 classesController.getMyClasses = async(req,res)=>{
+    console.log(req.userId)
     try {
-        const classes = await classesDAO.getManyClasses({creator:req.userId});
+        const classes = await classesDAO.getManyClasses({'creator.id':req.userId});
         return res.status(200).send(classes);
     } catch (error) {
         return res.status(500).send(error);
@@ -48,7 +49,7 @@ classesController.updateClass = async(req,res)=>{
     try{
         const validId =await classesDAO.validateId(_id);
         if(!validId){return res.status(404).send('No Class With this Id')}
-        const classEdit = await classesDAO.updateClass(_id,classData);
+        const classEdit = await classesDAO.updateClassId(_id,classData);
         return res.status(200).send(classEdit);
     }catch(error){
         return res.status(500).send(error);

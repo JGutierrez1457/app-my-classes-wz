@@ -14,9 +14,13 @@ classesModel.statics.deleteClass = async function(query){
     const classDeleted = await this.findByIdAndRemove(query);
     return classDeleted;
 }
-classesModel.statics.updateClass = async function(_id,query){
+classesModel.statics.updateClassId = async function(_id,query){
     const classUpdate = await this.findByIdAndUpdate(_id,query,{new:true});
     return classUpdate;
+}
+classesModel.statics.updateManyClass = async function (filter,query){
+    const classesUpdate = await this.updateMany(filter,query,{new:true});
+    return classesUpdate
 }
 
 classesModel.statics.validateId = async function(_id){

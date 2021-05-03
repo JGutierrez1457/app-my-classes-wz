@@ -1,4 +1,5 @@
 const userDAO = require('./users.dao');
+const clasesDAO = require('../classes/classes.dao');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -60,6 +61,7 @@ userController.editProfile = async (req, res)=>{
         const existUserName = await userDAO.getUser({username});
         if(existUserName&&username!==validId.username) return res.status(400).json({message:'Username in use.'});
         const editUser = await userDAO.editUser(req.userId,{username,avatar });
+        const classesUpdate = await clasesDAO.updateManyClass({'creator.id':req.userId},{$set:{'creator.username':username,'creator.avatar':avatar}});
         return res.status(200).json({result:editUser,message:'Update Successfully'})
 
 
