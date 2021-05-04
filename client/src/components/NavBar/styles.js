@@ -8,9 +8,9 @@ export default makeStyles((theme)=>({
         display:'flex',
         justifyContent:'space-between',
     },
-    white:{
-        width:theme.spacing(3),
-        height:theme.spacing(3),
+    imageAvatar:{
+        width:theme.spacing(4),
+        height:theme.spacing(4),
         color: theme.palette.getContrastText(indigo[50]),
         backgroundColor: indigo[50],
         marginRight:theme.spacing(1)
@@ -28,9 +28,16 @@ export default makeStyles((theme)=>({
     paper: {
         maxWidth: 400,
         overflow: 'auto',
-        marginTop: '0.5em'
+        marginTop: '0.5em',
       }
     ,
+    userMenu:{
+        flexDirection:'column',
+        cursor:'default',
+        '&:hover':{
+            backgroundColor: 'transparent'
+          }
+    },
     poper:{
         zIndex: 1,
         '&[x-placement*="bottom"] $spanArrow': {
@@ -68,9 +75,8 @@ export default makeStyles((theme)=>({
         alignItems: 'center',
         fontSize:'1.20rem',
     },
-    [theme.breakpoints.down('xs')]:{
-        toolTitle:{
+    toolTitle:{
             textTransform:'none'
         }
-    }
+    
 }))

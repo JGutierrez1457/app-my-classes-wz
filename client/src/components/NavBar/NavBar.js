@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { Slide, AppBar, Toolbar, IconButton,Typography, useScrollTrigger, Avatar, Button, MenuItem, Popper, MenuList, Divider, Paper, ClickAwayListener} from '@material-ui/core';
+import { Slide, AppBar, Toolbar, IconButton,Typography, 
+         useScrollTrigger, Avatar, Button, MenuItem, 
+         Popper, MenuList, Divider, Paper, ClickAwayListener, useTheme, useMediaQuery, createMuiTheme, MuiThemeProvider} from '@material-ui/core';
 
 import { Link, useHistory } from 'react-router-dom';
 
@@ -15,6 +17,24 @@ import { decode } from 'jsonwebtoken';
 
 
 const NavBar = ({toogleDrawer}) => {
+    const theme = useTheme();
+    const themeUserMenu = createMuiTheme({
+      props:{
+        MuiButtonBase:{
+          disableRipple:true,
+          
+        }
+      }
+    })
+    function UserMenuButton(props){
+      const {...menuItemProps} = props;
+      return(
+            <MuiThemeProvider theme={themeUserMenu}>
+              <MenuItem {...menuItemProps} className={classes.userMenu} component={Typography} variant='body2'>Sign in as<b>{user.username}</b></MenuItem>
+            </MuiThemeProvider>
+      )
+    }
+    const xs = useMediaQuery(theme.breakpoints.down('xs'));
     const trigger = useScrollTrigger();
     const classes = useStyle();
     const history = useHistory();
@@ -74,15 +94,15 @@ const NavBar = ({toogleDrawer}) => {
         <Slide appear={true} direction='down' in={!trigger}>
         <AppBar position='fixed'>
           <Toolbar className={classes.toolbar}>
-            {token && <IconButton color='inherit' onClick={toogleDrawer(true)}>
+            {xs && token && <IconButton color='inherit' onClick={toogleDrawer(true)}>
               <MenuIcon  />
             </IconButton>}
             <Button color='inherit' component={Link} to='/'>
             <Typography variant='h6' className={classes.toolTitle}>App Classes WZ</Typography>
             </Button>
-            {token?(<div className={classes.profile}>
-              <IconButton size='small' className={classes.menuUser}  onClick={handleToggleMenu} ref={anchorRef}>
-              <Avatar alt={user.username} src={user.avatar} className={classes.white}   />
+            {!xs && token && <div className={classes.profile}>
+              <IconButton className={classes.menuUser}  onClick={handleToggleMenu} ref={anchorRef}>
+              <Avatar alt={user.username} src={user.avatar} className={classes.imageAvatar}   />
                 <ArrowDropDownIcon />
               </IconButton>
               
@@ -105,19 +125,26 @@ const NavBar = ({toogleDrawer}) => {
                 <Paper className={classes.paper}>
                   <ClickAwayListener onClickAway={handleCloseMenu}>
                     <MenuList onKeyDown={handleListKeyDown}>
-                      <MenuItem onClick={handleCloseMenu}>Sign in as {user.username}</MenuItem>
+                      <UserMenuButton />
                       <Divider/>
-                      <MenuItem onClick={logout} component={Button}>Sign Out</MenuItem> 
+                      <MenuItem onClick={handleCloseMenu} component={Link} to='/myclasses'>My classes</MenuItem> 
+                      <MenuItem onClick={handleCloseMenu} component={Link} to='/mylikes'>My Likes</MenuItem>
+                      <MenuItem onClick={handleCloseMenu} component={Link} to='/myreports'>My Reports</MenuItem>
+                      <MenuItem onClick={handleCloseMenu} component={Link} to='/addclasses'>Add classes</MenuItem>
+                      <Divider/>
+                      <MenuItem onClick={handleCloseMenu} component={Link} to='/settings'>Settings</MenuItem>
+                      <Divider/>
+                      <MenuItem onClick={logout} style={{textTransform:'none'}} component={Button}>Sign out</MenuItem> 
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
               </Popper>
-            </div>
-              ):(
-              <Button color='inherit' style={{borderRadius:'0%'}} component={Link} to='/login'>
-            <Typography variant='h6'>Log In</Typography>
+            </div>}
+              
+            {!token && <Button color='inherit' variant='outlined' style={{borderRadius:'0%'}} component={Link} to='/login'>
+            <Typography variant='h6' style={{textTransform:'none'}}>Log In</Typography>
             </Button>
-            )}
+            }
             
           </Toolbar>
         </AppBar>
