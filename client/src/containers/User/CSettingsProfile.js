@@ -4,7 +4,7 @@ import { editProfile} from '../../actions/settings'
 
 const mapDispatchToProps = (dispatch)=>{
     return {
-        handleSubmit :(data)=>dispatch(editProfile(data))
+        handleSubmit :(dataProfile)=>dispatch(editProfile(dataProfile))
     }
 }
 const CSettingsProfile = connect(null,mapDispatchToProps)(SettingsProfile)

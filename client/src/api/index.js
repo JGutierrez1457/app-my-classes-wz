@@ -23,3 +23,5 @@ export const signIn = (data)=> API.post(`/api/auth/signin`,data)
 export const signUp = (data)=> API.post(`/api/auth/signup`,data)
 
 export const editProfile = (data)=> API.patch(`/api/users/edit/profile`,data);
+export const editEmail = (data)=> API.patch(`api/users/edit/email`,data);
+export const editSecurity = (data)=> API.patch(`api/users/edit/security`,data);
