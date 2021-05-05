@@ -21,3 +21,5 @@ export const updateClasses = (id, data )=> API.patch(`/api/classes/${id}`,data);
 
 export const signIn = (data)=> API.post(`/api/auth/signin`,data)
 export const signUp = (data)=> API.post(`/api/auth/signup`,data)
+
+export const editProfile = (data)=> API.patch(`/api/users/edit/profile`,data);

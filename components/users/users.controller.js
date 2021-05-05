@@ -59,14 +59,16 @@ userController.editProfile = async (req, res)=>{
         if(!validId){return res.status(404).send('No User With this Id')}
         
         const existUserName = await userDAO.getUser({username});
-        if(existUserName&&username!==validId.username) return res.status(400).json({message:'Username in use.'});
+        if(existUserName&&username!==validId.username) return res.status(400).json({message:{severity:'warning',text:'Username in use.'}});
         const editUser = await userDAO.editUser(req.userId,{username,avatar });
+        const token = jwt.sign({email:editUser.email, id:editUser._id},'test',{expiresIn:'1h'});
+
         const classesUpdate = await clasesDAO.updateManyClass({'creator.id':req.userId},{$set:{'creator.username':username,'creator.avatar':avatar}});
-        return res.status(200).json({result:editUser,message:'Update Successfully'})
+
+        return res.status(200).json({result:editUser,token,message:{severity:'success',text:'Update Successfully'}})
 
 
     } catch (error) {
-        console.log(error)
         return res.status(500).json({message:'Something went wrongs'})
     }
 
@@ -79,9 +81,9 @@ userController.editEmail = async (req, res)=>{
         if(!validId){return res.status(404).send('No User With this Id')}
 
         const existEmail = await userDAO.getUser({email});
-        if(existEmail&&email!==validId.email) return res.status(400).json({message:'Email already register.'});
+        if(existEmail&&email!==validId.email) return res.status(400).json({message:{severity:'warning',text:'Email already register.'}});
         const editUser = await userDAO.editUser(req.userId,{ email });
-        return res.status(200).json({result:editUser,message:'Update Successfully'})
+        return res.status(200).json({result:editUser,message:{severity:'success',text:'Update Successfully'}})
        
     } catch (error) {
         console.log(error)
@@ -97,15 +99,15 @@ userController.editPassword = async (req, res)=>{
         if(!validId){return res.status(404).send('No User With this Id')};
 
         const isOldPasswordCorrect = await bcrypt.compare(oldPassword,validId.password);
-        if(!isOldPasswordCorrect) return res.status(400).json({message:"Incorrect Old Password."});
+        if(!isOldPasswordCorrect) return res.status(400).json({message:{severity:'warning',text:'Incorrect Old Password.'}});
 
-        if(newPassword!==confirmPassword) return res.status(400).json({message:"Password don't match."})
+        if(newPassword!==confirmPassword) return res.status(400).json({message:{severity:'warning',text:"Password don't match."}})
 
         const salt =  await bcrypt.genSalt(10);
         const hashedNewPassword = await bcrypt.hash(newPassword,salt);
 
         const editUser = await userDAO.editUser(req.userId,{ password:hashedNewPassword });
-        return res.status(200).json({result:editUser,message:'Update Successfully'})
+        return res.status(200).json({result:editUser,message:{severity:'success',text:'Update Successfully'}})
     } catch (error) {
         console.log(error)
         return res.status(500).json({message:'Something went wrongs'})

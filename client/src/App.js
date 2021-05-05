@@ -9,6 +9,8 @@ import CEditClasses from './containers/CEditClasses';
 import CSignIn from './containers/Auth/CSignIn';
 import CSignUp from './containers/Auth/CSignUp';
 
+import UserSettings from './components/UserSettings/UserSettings';
+
 import NavBar from './components/NavBar/NavBar';
 import MenuDrawer from './components/MenuDrawer/MenuDrawer';
 import { getClasses, myClasses} from './actions/classes'
@@ -62,6 +64,10 @@ const toogleDrawer = (open)=> (event)=>{
            return <Redirect to={{pathname:'/',state:{ from: props.location}}} />} } />
           <Route exact path='/signup' render = {props => {
             if(!token){return <CSignUp {...props}/>}
+            return <Redirect to={{pathname:'/',state:{ from: props.location}}} />
+          }}/>
+          <Route path='/settings' render = {props => {
+            if(token){return <UserSettings {...props}/>}
             return <Redirect to={{pathname:'/',state:{ from: props.location}}} />
           }}/>
 

@@ -134,7 +134,7 @@ const NavBar = ({toogleDrawer}) => {
                       <Divider/>
                       <MenuItem onClick={handleCloseMenu} component={Link} to='/settings'>Settings</MenuItem>
                       <Divider/>
-                      <MenuItem onClick={logout} style={{textTransform:'none'}} component={Button}>Sign out</MenuItem> 
+                      <MenuItem onClick={logout} style={{textTransform:'none'}} >Sign out</MenuItem> 
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
