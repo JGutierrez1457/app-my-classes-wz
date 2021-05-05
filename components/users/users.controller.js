@@ -37,7 +37,6 @@ userController.signup= async (req,res)=>{
         const token = jwt.sign({email: newUser.email, id: newUser._id},'test',{expiresIn:'1h'});
         res.status(200).json({result: newUser,token});
     } catch (error) {
-        console.log(error)
         res.status(500).json({message:'Something went wrongs'});
     }
 }
@@ -86,7 +85,6 @@ userController.editEmail = async (req, res)=>{
         return res.status(200).json({result:editUser,message:{severity:'success',text:'Update Successfully'}})
        
     } catch (error) {
-        console.log(error)
         return res.status(500).json({message:'Something went wrongs'})
     }
 
@@ -109,7 +107,6 @@ userController.editPassword = async (req, res)=>{
         const editUser = await userDAO.editUser(req.userId,{ password:hashedNewPassword });
         return res.status(200).json({result:editUser,message:{severity:'success',text:'Update Successfully'}})
     } catch (error) {
-        console.log(error)
         return res.status(500).json({message:'Something went wrongs'})
     }
 

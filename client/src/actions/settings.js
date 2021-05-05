@@ -1,4 +1,4 @@
-import { EDIT_EMAIL, EDIT_SECURITY, AUTH} from '../constants/actionTypes';
+import { EDIT_EMAIL, AUTH} from '../constants/actionTypes';
 import * as api from '../api'
 
 export const editProfile = (dataProfile)=>async(dispatch)=>{
@@ -30,5 +30,14 @@ export const editEmail = (dataEmail)=>async (dispatch)=>{
     } catch (error) {
         return error.response.data?.message ;
     }
-
+}
+export const editSecurity = (dataSecurity)=>async(dispatch)=>{
+    try {
+        const { data } = await api.editSecurity(dataSecurity);
+        const message = data.message;
+        delete data.message;
+        return message;
+    } catch (error) {
+        return error.response.data?.message;
+    }
 }

@@ -48,7 +48,7 @@ function SettingsEmail({handleSubmit}) {
             </Typography>
             <form onSubmit={handleOnSubmit}>
                 <div className={classes.formInput}>
-            <TextField type='email' name='email' variant='outlined' label='Email' value={dataEmail.email} onChange={handleChange} />
+            <TextField type='email' name='email' variant='outlined' label='Email' value={dataEmail.email} onChange={handleChange} autoFocus />
                 </div>
             <Button variant='contained' color='primary' type='submit'>Accept</Button>
             </form>
