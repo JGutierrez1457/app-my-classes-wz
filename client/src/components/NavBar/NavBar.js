@@ -92,8 +92,8 @@ const NavBar = ({toogleDrawer}) => {
     
     return (
         <Slide appear={true} direction='down' in={!trigger}>
-        <AppBar position='fixed'>
-          <Toolbar className={classes.toolbar}>
+        <AppBar position='fixed' >
+          <Toolbar className={classes.toolbar} >
             {xs && token && <IconButton color='inherit' onClick={toogleDrawer(true)}>
               <MenuIcon  />
             </IconButton>}

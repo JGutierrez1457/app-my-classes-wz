@@ -34,7 +34,6 @@ useEffect(()=>{
 
 const toogleDrawer = (open)=> (event)=>{
   if(event.type === 'keydown' && (event.key==='Tab' || event.key==='Shift')){
-    console.log(event.key)
     return;
   }
   setOpenDrawer(open);
