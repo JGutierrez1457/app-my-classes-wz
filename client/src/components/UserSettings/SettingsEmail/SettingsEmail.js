@@ -1,8 +1,9 @@
 import React,{useState} from 'react'
-import { Paper, TextField, Typography, Button, Snackbar, LinearProgress } from '@material-ui/core'
+import { Paper, TextField, Typography, Button, LinearProgress } from '@material-ui/core'
 import {useSelector} from 'react-redux';
 import useStyle from './styles';
-import Alert from '@material-ui/lab/Alert';
+
+import AlertMessage from '../../AlertMessage/AlertMessage';
 function SettingsEmail({handleSubmit}) {
     const classes = useStyle();
     const user = useSelector(state => state.auth?.authData?.result);
@@ -22,25 +23,13 @@ function SettingsEmail({handleSubmit}) {
         .then(m =>setAlertMessage({...alertMessage,...m}))
         .finally(()=>{setShowProgress(false);setOpenAlert(true)});
     }
-    const handleCloseAlert= (event,reason)=>{
-        if(reason === 'clickaway'){
-            return;
-        }
-        setOpenAlert(false);
-    }
     return (
         <>
-        <Snackbar 
-            open={openAlert} 
-            onClose={handleCloseAlert}
-            autoHideDuration={3000}
-            anchorOrigin={{horizontal:'left',vertical:'bottom'}}
-            className={classes.snackBar}
-            >
-            <Alert onClose={handleCloseAlert} severity={alertMessage.severity}>
-                {alertMessage.text}
-            </Alert>
-        </Snackbar>
+        <AlertMessage 
+            alertMessage={alertMessage}
+            openAlert={openAlert}
+            setOpenAlert={setOpenAlert}
+            />
         {showProgress&&<LinearProgress />}
         <Paper className={classes.paper}>
             <Typography>

@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme)=>({
     paper:{
         padding:theme.spacing(4,4),
-        margin:theme.spacing(2,20),
+        margin:theme.spacing(2,40),
         [theme.breakpoints.down('xs')]:{
             margin:theme.spacing(2,3)
         }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { CardMedia, Paper, TextField, Button, Typography, Snackbar, LinearProgress } from '@material-ui/core'
-import Alert from '@material-ui/lab/Alert'
+import { CardMedia, Paper, TextField, Button, Typography, LinearProgress } from '@material-ui/core'
+import AlertMessage from '../../AlertMessage/AlertMessage'
 import { useSelector } from 'react-redux'
 import FileBase64 from 'react-file-base64'
 import useStyles from './styles';
@@ -13,13 +13,6 @@ function SettingsProfile({ handleSubmit }) {
     const [ showProgress, setShowProgress] = useState(false)
     const classes = useStyles();
 
-    const handleCloseAlert = (event,reason)=>{
-        if(reason ==='clickaway'){
-            return;
-        }
-        setOpenAlert(false);
-
-    }
 
     const handleChange = (e) => {
         setDataProfile({ ...dataProfile, [e.target.name]: e.target.value });
@@ -37,15 +30,11 @@ function SettingsProfile({ handleSubmit }) {
     }
     return (
         <>
-        <Snackbar 
-            open={openAlert} 
-            autoHideDuration={3000} 
-            anchorOrigin={{vertical:'bottom',horizontal:'left'}} 
-            onClose={handleCloseAlert}
-            className={classes.snackBar}
-            >
-            <Alert variant='standard'  onClose={handleCloseAlert}  severity={alertMessage.severity}>{alertMessage.text}</Alert>
-        </Snackbar>
+         <AlertMessage 
+            alertMessage={alertMessage}
+            openAlert={openAlert}
+            setOpenAlert={setOpenAlert}
+            />
        {showProgress&&<LinearProgress color='primary' />}
         <Paper className={classes.paper}>
             <Typography variant='h6'>Change UserName</Typography>

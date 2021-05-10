@@ -3,12 +3,15 @@ import * as api from '../api';
 export const signin = (dataUser)=>async (dispatch)=>{
     try {
         const { data } = await api.signIn(dataUser);
+        const message = data.message;
+        delete data.message;
+
 
         dispatch({
             type:AUTH,
             data
         })
-        return 'authenticated';
+        return message;
     } catch (error) {
         return error.response.data?.message ;
     }
@@ -16,10 +19,12 @@ export const signin = (dataUser)=>async (dispatch)=>{
 export const signup = (dataUser)=> async (dispatch)=>{
     try {
         const { data } = await api.signUp(dataUser);
+        const message = data.message;
+        delete data.message;
         dispatch({
             type:AUTH,data
         })
-        return 'authenticated';
+        return message;
     } catch (error) {
         return error.response.data?.message;
     }

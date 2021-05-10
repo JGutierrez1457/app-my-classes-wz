@@ -1,10 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles'
 export default makeStyles((theme)=>({
     paper:{
-        padding:theme.spacing(4,8),
-        margin:theme.spacing(2,14),
-        [theme.breakpoints.down('xs')]:{
-            margin:theme.spacing(2,1),
+        padding:theme.spacing(4,4),
+        margin:theme.spacing(2,40),
+        [theme.breakpoints.down('sm')]:{
+            margin:theme.spacing(2,3),
             padding:theme.spacing(4,2),
 
         }

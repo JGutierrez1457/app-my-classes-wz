@@ -26,9 +26,4 @@ export default makeStyles((theme)=>({
         }
         
     },
-    snackBar:{
-        [theme.breakpoints.down('xs')]:{
-            bottom:200
-        }
-    }
 }))

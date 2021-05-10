@@ -1,5 +1,5 @@
-import { Button, LinearProgress, Paper, Snackbar, TextField, Typography } from '@material-ui/core'
-import Alert from '@material-ui/lab/Alert';
+import { Button, LinearProgress, Paper, TextField, Typography } from '@material-ui/core'
+import AlertMessage from '../../AlertMessage/AlertMessage'
 import React,{useState} from 'react'
 import useStyle from './styles'
 function SettingsSecurity({handleSubmit}) {
@@ -11,12 +11,6 @@ function SettingsSecurity({handleSubmit}) {
     const [ showProgress, setShowProgress ] = useState(false);
     const handleChange = (e)=>{
         setDataSecurity({...dataSecurity,[e.target.name]:e.target.value})
-    }
-    const handleCloseAlert = (event, reason)=>{
-        if(event ==='clickaway'){
-            return;
-        }
-        setOpenAlert(false);
     }
     const handleOnSubmit = (e)=>{
         e.preventDefault();
@@ -34,20 +28,11 @@ function SettingsSecurity({handleSubmit}) {
     return (
         
         <>
-        <Snackbar
-            open={openAlert}
-            autoHideDuration={3000}
-            anchorOrigin={{horizontal:'left',vertical:'bottom'}}
-            onClose={handleCloseAlert}
-            className={classes.snackBar}
-            >
-            <Alert 
-                onClose={handleCloseAlert}
-                severity={alertMessage.severity}
-                >
-                {alertMessage.text}
-            </Alert>
-        </Snackbar>
+         <AlertMessage 
+            alertMessage={alertMessage}
+            openAlert={openAlert}
+            setOpenAlert={setOpenAlert}
+            />
         {showProgress&&<LinearProgress/>}
         <Paper className={classes.paper}>
             <Typography>Change Your Password</Typography>
