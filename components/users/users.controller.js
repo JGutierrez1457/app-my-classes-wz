@@ -113,18 +113,19 @@ userController.editPassword = async (req, res)=>{
 }
 
 userController.deleteUser = async (req, res)=>{
-    const {id} = req.params;
-    const {password} = req.body;
+    const { email,password} = req.body;
     try {
-        const existUser = await userDAO.getUserId(id);
-        if(!existUser)return res.status(404).json({message:"User dont exist."});
+        const validId =await userDAO.validateId(req.userId);
+        if(!validId){return res.status(404).send('No User With this Id')};
 
-        const isPasswordCorrect = await bcrypt.compare(password,existUser.password);
-        if(!isPasswordCorrect) return res.status(400).json({message:"Invalid Credentials"});
+        if(email!==validId.email) return res.status(400).json({message:{severity:'error',text:'Incorrect Email'}});
 
-        const userDelete = await userDAO.deleteUser(id);
+        const isPasswordCorrect = await bcrypt.compare(password,validId.password);
+        if(!isPasswordCorrect) return res.status(400).json({message:{severity:'error',text:"Incorrect Password"}});
 
-        res.status(200).json({message:`User ${userDelete.username} Deleted`})
+        const userDelete = await userDAO.deleteUser(validId._id);
+
+        res.status(200).json({message:{severity:'success',text:`User ${userDelete.username} Deleted`}})
     } catch (error) {
         
     }

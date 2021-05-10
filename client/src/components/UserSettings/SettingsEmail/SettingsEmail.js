@@ -32,7 +32,7 @@ function SettingsEmail({handleSubmit}) {
             />
         {showProgress&&<LinearProgress />}
         <Paper className={classes.paper}>
-            <Typography>
+            <Typography variant='h6'>
                 Change Email
             </Typography>
             <form onSubmit={handleOnSubmit}>

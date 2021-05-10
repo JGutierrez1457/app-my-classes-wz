@@ -12,15 +12,19 @@ const SignIn = ({handleSubmit}) => {
     const [userForm, setUserForm] = useState({email:'',password:''});
 
     const [ openAlert, setOpenAlert ] = useState(false);
-    const [ alertMessage, setAlertMessage ] =useState({severity:'success',text:''})
+    const [ alertMessage, setAlertMessage ] =useState({severity:'error',text:''})
+
+    const validateSuccess = (m)=>{
+        if(m.severity!=='success'&&m.text!==''){
+            setAlertMessage({...alertMessage, ...m});
+            setOpenAlert(true);
+        }
+    }
 
     const onSubmit = (e)=>{
         e.preventDefault();
         handleSubmit(userForm)
-        .then(m =>setAlertMessage({...alertMessage, ...m}))
-        .finally(()=>{
-            setOpenAlert(true);
-        });
+        .then(m =>validateSuccess(m))
     }
     
 

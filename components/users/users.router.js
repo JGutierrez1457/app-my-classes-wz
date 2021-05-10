@@ -8,6 +8,6 @@ router.patch('/edit/profile',auth,userController.editProfile);
 router.patch('/edit/email',auth,userController.editEmail);
 router.patch('/edit/security',auth,userController.editPassword);
 
-router.delete('/:id/delete',userController.deleteUser);
+router.delete('/edit/account/delete',auth,userController.deleteUser);
 
 module.exports= router;

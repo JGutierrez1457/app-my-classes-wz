@@ -15,7 +15,7 @@ const SignUp = ({handleSubmit}) => {
     const [showPassword, setShowPassword ] = useState(false)
 
     const [ openAlert, setOpenAlert ] = useState(false);
-    const [ alertMessage, setAlertMessage ] =useState({severity:'success',text:''})
+    const [ alertMessage, setAlertMessage ] =useState({severity:'error',text:''})
 
 
     const history = useHistory();
@@ -23,13 +23,17 @@ const SignUp = ({handleSubmit}) => {
         setUserForm({...userForm,[e.target.name]:e.target.value})
     }
   
+    const validateSuccess = (m)=>{
+        if(m.severity!=='success'&&m.text!==''){
+            setAlertMessage({...alertMessage, ...m});
+            setOpenAlert(true);
+        }
+    }
+
     const onSubmit = (e)=>{
         e.preventDefault();
         handleSubmit(userForm)
-        .then(m =>setAlertMessage({...alertMessage,...m}))
-        .finally(()=>{
-            setOpenAlert(true);
-        });
+        .then(m =>validateSuccess(m))
     }
     const handleShowPassword = ()=>{
         setShowPassword(prevstate => !prevstate)

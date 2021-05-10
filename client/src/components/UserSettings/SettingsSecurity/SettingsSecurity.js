@@ -35,7 +35,7 @@ function SettingsSecurity({handleSubmit}) {
             />
         {showProgress&&<LinearProgress/>}
         <Paper className={classes.paper}>
-            <Typography>Change Your Password</Typography>
+            <Typography variant='h6'>Change Your Password</Typography>
             <form onSubmit={handleOnSubmit}>
                 <div className={classes.formInput}>
                     <TextField type='password' name='oldPassword' label='Old Password' variant='outlined' onChange={handleChange} value={dataSecurity.oldPassword} autoFocus/>

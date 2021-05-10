@@ -32,7 +32,6 @@ export const myClasses = ()=>async (dispatch)=>{
                 payload:[]
             })
         }
-        console.log(error);
     }
 }
 export const createClasses = (classes)=>async(dispatch)=>{
