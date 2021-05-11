@@ -13,7 +13,7 @@ if(process.env.NODE_ENV!=='production'){
     dotenv.config();
     app.use(morgan('dev'))
 }
-if(procces.env.NODE_ENV==='production'){
+if(process.env.NODE_ENV==='production'){
     app.use(express.static(path.join(__dirname,'../client/build')))
 }
 
