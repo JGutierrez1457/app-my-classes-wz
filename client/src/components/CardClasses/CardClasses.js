@@ -1,6 +1,6 @@
 import {
     Card, CardActionArea, CardActions, CardContent, CardMedia, Typography,
-    Button, Modal, Grid, Container, IconButton, CardHeader, useMediaQuery, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Avatar
+    Button, Modal, Grid, Container, IconButton, CardHeader, useMediaQuery, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Avatar, Divider
 } from '@material-ui/core'
 import { SpeedDial, SpeedDialAction } from '@material-ui/lab'
 import React, { useEffect, useRef, useState } from 'react'
@@ -11,21 +11,23 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import ReportProblemIcon from '@material-ui/icons/ReportProblem';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import useStyle from './styles';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 
-function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn ,showPrivacity}) {
+function CardClasses({ classItem, onClickDelete, setIdClassEdit, isOwn, showPrivacity }) {
     const classes = useStyle();
     const [openZoom, setOpenZoom] = useState(false);
     const [hiddeSpeedDial, setHiddeSpeedDial] = useState(true);
     const [openSpeedDial, setOpenSpeedDial] = useState(false);
     const [openDialogDelete, setOpenDialogDelete] = useState(false);
-    const [confirmDelete, setConfirmDelete ] = useState('');
-    const [trueConfirmDelete, setTrueConfirmDelete ] = useState(true);
+    const [confirmDelete, setConfirmDelete] = useState('');
+    const [trueConfirmDelete, setTrueConfirmDelete] = useState(true);
 
     const theme = useTheme();
-    const myRef =useRef();
+    const myRef = useRef();
     const history = useHistory();
     const small = useMediaQuery(theme.breakpoints.down('xs'));
     const token = useSelector(state => state.auth?.authData?.token)
@@ -57,18 +59,18 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn ,showPrivac
     const handleClickCloseDialogDelete = () => {
         setOpenDialogDelete(false);
     }
-    const handleDisabledButtonDelete = (value)=>{
-        if(value===classItem.title){
+    const handleDisabledButtonDelete = (value) => {
+        if (value === classItem.title) {
             setTrueConfirmDelete(false)
             return
         }
         setTrueConfirmDelete(true)
     }
-    const onChangeInputDelete = (e)=>{
+    const onChangeInputDelete = (e) => {
         setConfirmDelete(e.target.value);
         handleDisabledButtonDelete(e.target.value)
     }
-    const handleDeleteClass = ()=>{
+    const handleDeleteClass = () => {
         onClickDelete(classItem._id);
         handleClickCloseDialogDelete();
     }
@@ -95,7 +97,7 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn ,showPrivac
     return (
         <>
             <Card style={{ position: 'relative' }} >
-                <div 
+                <div
                     onMouseLeave={handleHiddeSpeedDial(true)}
                     onMouseMove={handleHiddeSpeedDial(false)}
                 >
@@ -103,7 +105,7 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn ,showPrivac
                         <CardMedia image={classItem.image}
                             title={classItem.title} className={classes.imageClass} />
                     </CardActionArea>
-                    {token&&<SpeedDial className={classes.moreHoriz}
+                    {token && <SpeedDial className={classes.moreHoriz}
                         ariaLabel="Speedial for edit and delete class"
                         icon={<MoreHorizIcon />}
                         hidden={hiddeSpeedDial}
@@ -112,30 +114,30 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn ,showPrivac
                         onOpen={handleOpenSpeedDial}
                         onClose={handleCloseSpeedDial}
                     >
-                {isOwn &&<SpeedDialAction key='edit'
-                    icon={<EditIcon />}
-                    tooltipTitle='Edit'
-                    tooltipOpen={true}
-                    onFocus={()=>myRef.current.focus()}//For Fix AutoFocus to Fab with ESC
-                    onClick={()=>{setIdClassEdit(classItem._id);history.push('/editclass')}}
-                />
+                        {isOwn && <SpeedDialAction key='edit'
+                            icon={<EditIcon />}
+                            tooltipTitle='Edit'
+                            tooltipOpen={true}
+                            onFocus={() => myRef.current.focus()}//For Fix AutoFocus to Fab with ESC
+                            onClick={() => { setIdClassEdit(classItem._id); history.push('/editclass') }}
+                        />
                         }
-                {isOwn&&<SpeedDialAction key='delete'
-                    icon={<DeleteIcon />}
-                    tooltipTitle='Delete'
-                    tooltipOpen={true}
-                    onClick={handleClickOpenDialogDelete}
-                    onFocus={()=>myRef.current.focus()}//For Fix AutoFocus to Fab with ESC
-                    />
-                }
-                 {!isOwn&&<SpeedDialAction key='report'
-                    icon={<ReportProblemIcon />}
-                    tooltipTitle='Report'
-                    tooltipOpen={true}
-                    onClick={()=>alert('Reporting')}
-                    onFocus={()=>myRef.current.focus()}//For Fix AutoFocus to Fab with ESC
-                    />
-                }
+                        {isOwn && <SpeedDialAction key='delete'
+                            icon={<DeleteIcon />}
+                            tooltipTitle='Delete'
+                            tooltipOpen={true}
+                            onClick={handleClickOpenDialogDelete}
+                            onFocus={() => myRef.current.focus()}//For Fix AutoFocus to Fab with ESC
+                        />
+                        }
+                        {!isOwn && <SpeedDialAction key='report'
+                            icon={<ReportProblemIcon />}
+                            tooltipTitle='Report'
+                            tooltipOpen={true}
+                            onClick={() => alert('Reporting')}
+                            onFocus={() => myRef.current.focus()}//For Fix AutoFocus to Fab with ESC
+                        />
+                        }
                     </SpeedDial>}
                 </div>
                 <Dialog open={openDialogDelete} onClose={handleClickCloseDialogDelete} >
@@ -155,12 +157,12 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn ,showPrivac
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button color="secondary" 
-                            variant="contained" 
-                            fullWidth 
+                        <Button color="secondary"
+                            variant="contained"
+                            fullWidth
                             disabled={trueConfirmDelete}
                             onClick={handleDeleteClass}
-                            >
+                        >
                             Accept
                         </Button>
                     </DialogActions>
@@ -169,7 +171,7 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn ,showPrivac
                     <Typography gutterBottom variant='h5' component='h2'>
                         {classItem.title}
                         {' '}
-                        {showPrivacity?(classItem.public?<VisibilityIcon fontSize='small'/>:<VisibilityOffIcon fontSize='small'/>):<></>}
+                        {showPrivacity ? (classItem.public ? <VisibilityIcon fontSize='small' /> : <VisibilityOffIcon fontSize='small' />) : <></>}
                     </Typography>
                     <Typography variant='body2' color='textSecondary' component='p'>
                         <b>Owner:</b> {classItem.owner}
@@ -179,17 +181,33 @@ function CardClasses({ classItem,onClickDelete,setIdClassEdit, isOwn ,showPrivac
                         <b>Weapon:</b> {classItem.nameWeapon}
                     </Typography>
                 </CardContent>
-                <CardActions>
+                <Divider />
+                {classItem.likes.length?
+                <>
+                <div className={classes.likeCount}>
+                <Typography variant='body2' align='right'>
+                    {classItem.likes.length}
+                </Typography>
+                </div>
+                <Divider />
+                </>:<></>  
+                }
+                <CardActions style={{ justifyContent: 'space-between' }}>
                     <div className={classes.containerAvatar}>
-                    <Avatar 
-                        className={classes.avatarCreator} 
-                        alt={classItem.creator.username} 
-                        src={classItem.creator.avatar}
-                        component={Link}
-                        to='/'
-                        title={classItem.creator.username}
+                        <Avatar
+                            className={classes.avatarCreator}
+                            alt={classItem.creator.username}
+                            src={classItem.creator.avatar}
+                            component={Link}
+                            to='/'
+                            title={classItem.creator.username}
                         />
                         <Typography variant='h6' className={classes.avatarNameCreator}>{classItem.creator.username}</Typography>
+                    </div>
+                    <div className={classes.likeButton}>
+                        <IconButton>
+                            {classItem.likes.length ? <ThumbUpAltIcon /> : <ThumbUpAltOutlinedIcon />}
+                        </IconButton>
                     </div>
                 </CardActions>
             </Card>

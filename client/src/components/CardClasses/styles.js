@@ -1,5 +1,5 @@
 import { makeStyles} from '@material-ui/core/styles'
-import { indigo } from '@material-ui/core/colors';
+import { blue, indigo } from '@material-ui/core/colors';
 
 export default makeStyles((theme)=>({
 imageClass:{
@@ -33,6 +33,15 @@ moreHoriz:{
     height:'30px',
     minHeight:'30px'
 }
+},
+    likeButton:{
+        '& .MuiSvgIcon-root':{
+            color:blue[500]
+        }
+    }
+,
+likeCount:{
+    padding:theme.spacing(0.5,2)
 },
 [theme.breakpoints.down('xs')]:{
     zoomImageClass:{
