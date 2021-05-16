@@ -10,5 +10,6 @@ router.post('/',auth,classesController.createClasses);
 router.delete('/:id',auth,classesController.deleteClass);
 
 router.patch('/:id',auth,classesController.updateClass);
+router.patch('/:id/like',auth,classesController.likeClass);
 
 module.exports = router;

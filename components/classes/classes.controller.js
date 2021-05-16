@@ -54,5 +54,24 @@ classesController.updateClass = async(req,res)=>{
         return res.status(500).send(error);
     }
 }
+classesController.likeClass = async(req,res)=>{
+    const { id : _id } = req.params;
+    try{
+        const validId = await classesDAO.validateId(_id);
+        if(!validId){return res.status(404).send('No Class With this Id')}
+        const likeArray = validId.likes;
+        const likedUser = validId.likes.findIndex(userLike=>userLike===req.userId);
+        let classLiked;
+        if(likedUser===-1){
+          classLiked = await classesDAO.updateClassId(_id,{$set:{likes:[...likeArray,req.userId]}})
+        }else{
+            likeArray.splice(likedUser,1);
+            classLiked = await classesDAO.updateClassId(_id,{$set:{likes:[...likeArray]}})
+        }
+        return res.status(200).send(classLiked);
+    }catch(error){
+        return res.status(500).send(error)
+    }
+}
 
 module.exports = classesController;
