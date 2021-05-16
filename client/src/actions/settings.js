@@ -41,7 +41,7 @@ export const editSecurity = (dataSecurity)=>async(dispatch)=>{
         return error.response.data?.message;
     }
 }
-export const editAccount = (dataAccount)=>async(dispatch)=>{
+export const editAccount = (dataAccount)=>async(dispatch)=>{//Borrar cuenta
     try{
         const { data} = await api.editAccount(dataAccount);
         const message = data.message;

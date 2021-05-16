@@ -12,7 +12,7 @@ const classes = (state=[], action)=>{
             if(existClass===-1){
                 return [...state, action.payload]
             }
-            if(existClass&&action.payload.public===false){
+            if(existClass&&action.payload.public===false){//editar la privacidad
                 return state.filter( c => c._id !== action.payload._id)
             }
             return state.map( c => c._id===action.payload._id?action.payload:c )

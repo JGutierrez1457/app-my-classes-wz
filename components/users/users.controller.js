@@ -16,7 +16,8 @@ userController.signin= async (req,res)=>{
         if(!isPasswordCorrect) return res.status(400).json({message:{severity:'error',text:"Incorrect Credentials."}});
 
         const token = jwt.sign({email:existUser.email, id:existUser._id},'test',{expiresIn:'1h'});
-        res.status(200).json({result:existUser,token,message:{severity:'success',text:'Sign In Successfully'}});
+
+        res.status(200).json({result:{_id:existUser._id,avatar:existUser.avatar, email:existUser.email, username: existUser.username},token,message:{severity:'success',text:'Sign In Successfully'}});
     } catch (error) {
         res.status(500).json({message:"Something went wrong."})
     }
@@ -35,7 +36,7 @@ userController.signup= async (req,res)=>{
         const hashedPassword =  await bcrypt.hash(password,salt);
         const newUser = await userDAO.createUser({username,email, password: hashedPassword,avatar });
         const token = jwt.sign({email: newUser.email, id: newUser._id},'test',{expiresIn:'1h'});
-        res.status(200).json({result: newUser,token,message:{severity:'success',text:'Sign Up Successfully'}});
+        res.status(200).json({result: {_id:newUser._id,avatar:newUser.avatar, email:newUser.email, username: newUser.username},token,message:{severity:'success',text:'Sign Up Successfully'}});
     } catch (error) {
         res.status(500).json({message:'Something went wrongs'});
     }
