@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
-import { deleteClass} from '../actions/classes'
+import { deleteClass, likeClass} from '../actions/classes'
 import CardClasses from '../components/CardClasses/CardClasses'
 const mapDispatchToProps = (dispatch)=>{
     return {
-        onClickDelete : (id)=>dispatch(deleteClass(id))
+        onClickDelete : (id)=>dispatch(deleteClass(id)),
+        onClickLike : (id)=>dispatch(likeClass(id))
     }
 }
 const mapStateToProps = (state, ownProps)=>{

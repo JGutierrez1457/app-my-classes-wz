@@ -19,9 +19,6 @@ zoomImageClass:{
     alignContent:'center'
 },avatarNameCreator:{
     fontSize:'1rem'
-},containerAvatar:{
-    display:'flex',
-    justifyContent:'flex-start',
 },
 moreHoriz:{
   position:'absolute',
@@ -34,14 +31,37 @@ moreHoriz:{
     minHeight:'30px'
 }
 },
-    likeButton:{
-        '& .MuiSvgIcon-root':{
-            color:blue[500]
-        }
-    }
-,
 likeCount:{
-    padding:theme.spacing(0.5,2)
+    padding:theme.spacing(0.5,2),
+    display:'flex',
+    justifyContent:'flex-end'
+},
+likeSmallIcon:{
+    height:20,
+    width:20,
+    marginLeft:theme.spacing(1)
+}
+,
+classActions:{
+    justifyContent: 'center',
+    padding:theme.spacing(0),
+    height:theme.spacing(5),
+    '& .MuiButtonBase-root':{
+        borderRadius:'0%',
+        padding:theme.spacing(0),
+        width:'100%',
+        height:'100%'
+    },
+    '& .MuiGrid-container':{
+        height:'100%'
+    }
+},
+avatarButton:{
+},
+likeButton:{
+    '& .MuiSvgIcon-root':{
+        color:blue[500]
+    }
 },
 [theme.breakpoints.down('xs')]:{
     zoomImageClass:{

@@ -18,6 +18,7 @@ export const myClasses = ()=> API.get(`/api/classes/myclasses`);
 export const createClasses = (data)=>API.post(`/api/classes`,data);
 export const deleteClasses = (id)=>API.delete(`/api/classes/${id}`);
 export const updateClasses = (id, data )=> API.patch(`/api/classes/${id}`,data);
+export const likeClasses = (id)=> API.patch(`api/classes/${id}/like`);
 
 export const signIn = (data)=> API.post(`/api/auth/signin`,data)
 export const signUp = (data)=> API.post(`/api/auth/signup`,data)

@@ -3,9 +3,18 @@ const userDAO = require('../users/users.dao');
 
 const classesController = {}
 
-classesController.getClasses = async(req, res)=>{
+classesController.getAllClasses = async(req, res)=>{
     try {
         const classes = await classesDAO.getManyClasses();
+        if(!classes){return res.status(404).send('Nothing Classes')}
+        return res.status(200).send(classes);
+    } catch (error) {
+        return res.status(500).send(error)
+    }
+}
+classesController.getClasses = async(req, res)=>{
+    try {
+        const classes = await classesDAO.getManyClasses({public:true});
         if(!classes){return res.status(404).send('Nothing Classes')}
         return res.status(200).send(classes);
     } catch (error) {

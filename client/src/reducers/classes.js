@@ -9,7 +9,7 @@ const classes = (state=[], action)=>{
             return state.filter( p => p._id !== action.payload)
         case EDIT:
             const existClass = state.findIndex( c=>c._id===action.payload._id);
-            if(existClass===-1){
+            if(existClass===-1 && action.payload.public===true){
                 return [...state, action.payload]
             }
             if(existClass&&action.payload.public===false){//editar la privacidad

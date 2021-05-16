@@ -81,3 +81,18 @@ export const updateClass = (id,dataEdit)=>async(dispatch)=>{
         console.log(error)
     }
 }
+export const likeClass = (id)=>async(dispatch)=>{
+    try {
+        const {data} = await api.likeClasses(id);
+        dispatch({
+            type:EDIT,
+            payload:data
+        })
+        dispatch({
+            type:MY_CLASS_EDIT,
+            payload:data
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}

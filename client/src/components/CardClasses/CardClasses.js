@@ -17,7 +17,7 @@ import useStyle from './styles';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 
-function CardClasses({ classItem, onClickDelete, setIdClassEdit, isOwn, showPrivacity }) {
+function CardClasses({ classItem, onClickDelete, setIdClassEdit,onClickLike, isOwn, showPrivacity }) {
     const classes = useStyle();
     const [openZoom, setOpenZoom] = useState(false);
     const [hiddeSpeedDial, setHiddeSpeedDial] = useState(true);
@@ -31,6 +31,7 @@ function CardClasses({ classItem, onClickDelete, setIdClassEdit, isOwn, showPriv
     const history = useHistory();
     const small = useMediaQuery(theme.breakpoints.down('xs'));
     const token = useSelector(state => state.auth?.authData?.token)
+    const user = useSelector(state => state.auth?.authData?.result);
 
     useEffect(() => {
         if (small) {
@@ -73,6 +74,9 @@ function CardClasses({ classItem, onClickDelete, setIdClassEdit, isOwn, showPriv
     const handleDeleteClass = () => {
         onClickDelete(classItem._id);
         handleClickCloseDialogDelete();
+    }
+    const handleClickLike = ()=>{
+        onClickLike(classItem._id);
     }
 
     const viewZoom = (
@@ -181,19 +185,21 @@ function CardClasses({ classItem, onClickDelete, setIdClassEdit, isOwn, showPriv
                         <b>Weapon:</b> {classItem.nameWeapon}
                     </Typography>
                 </CardContent>
-                <Divider />
                 {classItem.likes.length?
                 <>
                 <div className={classes.likeCount}>
-                <Typography variant='body2' align='right'>
+                <Typography variant='body2'>
                     {classItem.likes.length}
                 </Typography>
+                    <img src={process.env.PUBLIC_URL+'/like/icon.png'} alt='icon-like' className={classes.likeSmallIcon} />
                 </div>
-                <Divider />
                 </>:<></>  
                 }
-                <CardActions style={{ justifyContent: 'space-between' }}>
-                    <div className={classes.containerAvatar}>
+                <Divider />
+                <CardActions className={classes.classActions}>
+                    <Grid container spacing={0}>
+                        <Grid item xs={6}>
+                        <IconButton  className={classes.avatarButton}>
                         <Avatar
                             className={classes.avatarCreator}
                             alt={classItem.creator.username}
@@ -203,12 +209,28 @@ function CardClasses({ classItem, onClickDelete, setIdClassEdit, isOwn, showPriv
                             title={classItem.creator.username}
                         />
                         <Typography variant='h6' className={classes.avatarNameCreator}>{classItem.creator.username}</Typography>
-                    </div>
-                    <div className={classes.likeButton}>
-                        <IconButton>
-                            {classItem.likes.length ? <ThumbUpAltIcon /> : <ThumbUpAltOutlinedIcon />}
                         </IconButton>
-                    </div>
+                        </Grid>
+                        <Grid item xs={6}>
+                        <IconButton onClick={handleClickLike} disabled={user?false:true} className={classes.likeButton}>
+                            {classItem.likes.findIndex( users => users === user?._id)!==-1 ?
+                            (
+                            <>
+                            <ThumbUpAltIcon /> 
+                            <Typography variant='body2' style={{color:'#2196f3',fontWeight:'700'}} >Like</Typography>
+                            </>
+                            )
+                            :(
+                            <>
+                            <ThumbUpAltOutlinedIcon />
+                            <Typography variant='body2' >Like</Typography>
+                            </>
+                            )
+                            }
+                            
+                        </IconButton>
+                        </Grid>
+                    </Grid>
                 </CardActions>
             </Card>
             <Modal open={openZoom} onClose={handleCloseZoom} >

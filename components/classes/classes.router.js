@@ -3,6 +3,7 @@ const classesController = require('./classes.controller');
 const auth = require('../../middleware/auth');
 
 router.get('/',classesController.getClasses);
+router.get('/allclasses',classesController.getAllClasses);
 router.get('/myclasses',auth,classesController.getMyClasses);
 
 router.post('/',auth,classesController.createClasses);
