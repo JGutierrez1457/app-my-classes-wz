@@ -1,8 +1,12 @@
 const classesModel = require('./classes.model');
 const mongoose = require('mongoose');
 
-classesModel.statics.getManyClasses = async function(query){
-    const Classes = await this.find(query).exec();
+classesModel.statics.getManyClasses = async function(query,skip,limit){
+    const Classes = await this.find(query)
+                                .sort({_id:-1})
+                                .skip(skip)
+                                .limit(limit)
+                                .exec();
     return Classes;
 }
 classesModel.statics.createClass = async function(query){

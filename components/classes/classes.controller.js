@@ -5,16 +5,16 @@ const classesController = {}
 
 classesController.getAllClasses = async(req, res)=>{
     try {
-        const classes = await classesDAO.getManyClasses();
+        const classes = await classesDAO.getManyClasses({},parseInt(req.query.skip),parseInt(req.query.limit));
         if(!classes){return res.status(404).send('Nothing Classes')}
         return res.status(200).send(classes);
     } catch (error) {
         return res.status(500).send(error)
     }
 }
-classesController.getClasses = async(req, res)=>{
+classesController.getPublicClasses = async(req, res)=>{
     try {
-        const classes = await classesDAO.getManyClasses({public:true});
+        const classes = await classesDAO.getManyClasses({public:true},parseInt(req.query.skip),parseInt(req.query.limit));
         if(!classes){return res.status(404).send('Nothing Classes')}
         return res.status(200).send(classes);
     } catch (error) {
@@ -23,7 +23,7 @@ classesController.getClasses = async(req, res)=>{
 }
 classesController.getMyClasses = async(req,res)=>{
     try {
-        const classes = await classesDAO.getManyClasses({'creator.id':req.userId});
+        const classes = await classesDAO.getManyClasses({'creator.id':req.userId},parseInt(req.query.skip),parseInt(req.query.limit));
         return res.status(200).send(classes);
     } catch (error) {
         return res.status(500).send(error);
