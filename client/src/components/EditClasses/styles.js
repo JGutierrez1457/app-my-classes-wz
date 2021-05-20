@@ -1,5 +1,8 @@
 import { makeStyles} from '@material-ui/core/styles';
 export default makeStyles((theme)=>({
+    linearProgress:{
+        margin:theme.spacing(0,20)
+    },
     paper:{
         padding:theme.spacing(4),
         margin:theme.spacing(0,20)
