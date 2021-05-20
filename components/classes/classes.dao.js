@@ -1,10 +1,10 @@
 const classesModel = require('./classes.model');
 const mongoose = require('mongoose');
 
-classesModel.statics.getManyClasses = async function(query,skip,limit){
-    const Classes = await this.find(query)
+classesModel.statics.getManyClasses = async function(query,page,limit){
+    const Classes =  await this.find(query)
                                 .sort({_id:-1})
-                                .skip(skip)
+                                .skip(limit*page)
                                 .limit(limit)
                                 .exec();
     return Classes;

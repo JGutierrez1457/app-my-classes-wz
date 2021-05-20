@@ -13,8 +13,8 @@ API.interceptors.request.use((req)=>{
 })
 
 
-export const getClasses = ()=> API.get(`/api/classes`);
-export const myClasses = ()=> API.get(`/api/classes/myclasses`);
+export const getClasses = (page,cancel)=> API.get(`/api/classes?page=${page}&limit=9`,{cancelToken: cancel});
+export const myClasses = (page,cancel)=> API.get(`/api/classes/myclasses?page=${page}&limit=9`,{cancelToken: cancel});
 export const createClasses = (data)=>API.post(`/api/classes`,data);
 export const deleteClasses = (id)=>API.delete(`/api/classes/${id}`);
 export const updateClasses = (id, data )=> API.patch(`/api/classes/${id}`,data);

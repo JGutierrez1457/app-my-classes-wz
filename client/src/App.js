@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import { useSelector, useDispatch} from 'react-redux';
+import React, {useState} from 'react';
+import { useSelector} from 'react-redux';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import {  Container, Toolbar } from '@material-ui/core';
 
 import CAddClasses from './containers/CAddClasses';
-import CListClasses from './containers/CListClasses';
+import CPublicClasses from './containers/ListClasses.js/CPublicClasses';
+import CMyClasses from './containers/ListClasses.js/CMyClasses';
 import CEditClasses from './containers/CEditClasses';
 import CSignIn from './containers/Auth/CSignIn';
 import CSignUp from './containers/Auth/CSignUp';
@@ -13,7 +14,8 @@ import UserSettings from './components/UserSettings/UserSettings';
 
 import NavBar from './components/NavBar/NavBar';
 import MenuDrawer from './components/MenuDrawer/MenuDrawer';
-import { getClasses, myClasses} from './actions/classes'
+
+
 
 
 function App (){
@@ -21,15 +23,10 @@ function App (){
 const [openDrawer, setOpenDrawer] = useState(false);
 const [idClassEdit, setIdClassEdit] = useState(null);
 
-const dispatch = useDispatch();
 
-const token = useSelector(state => state.auth?.authData?.token)
-useEffect(()=>{
-  if(token){
-        dispatch(myClasses())
-      }
-      dispatch(getClasses())
-},[dispatch,token])
+const token = useSelector(state => state.auth?.authData?.token);
+
+
 
 
 const toogleDrawer = (open)=> (event)=>{
@@ -48,9 +45,9 @@ const toogleDrawer = (open)=> (event)=>{
         {token && <MenuDrawer openDrawer={openDrawer} toogleDrawer={toogleDrawer} /> }
         <Container>
         <Switch >
-          <Route exact path='/' render={ props => <CListClasses {...props} isOwn={false} setIdClassEdit={setIdClassEdit}/> } />
+          <Route exact path='/' render={ props => <CPublicClasses {...props} isOwn={false} setIdClassEdit={setIdClassEdit}/> } />
           <Route exact path='/myclasses' render={props => {
-            if(token){return <CListClasses {...props} isOwn={true} setIdClassEdit={setIdClassEdit} />}
+            if(token){return <CMyClasses {...props} isOwn={true} setIdClassEdit={setIdClassEdit} />}
             return <Redirect to={{pathname:'/',state:{ from: props.location}}} />}}/>
           <Route exact path='/addclasses' render={props => { 
             if(token){return<CAddClasses {...props}/>}
