@@ -26,6 +26,7 @@ function SearchWeapon({getNameWeapon,name}) {
                 labelId="nameWeapon" 
                 value={nameWeapon}
                 onChange={handleChange}
+                required
                 >
                     {namesWeapons.map( nw =>(<MenuItem key={nw.name} value={nw.name}>{nw.name}</MenuItem>))}
             </Select>

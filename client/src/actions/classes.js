@@ -35,8 +35,14 @@ export const myClasses = ()=>async (dispatch)=>{
     }
 }
 export const createClasses = (classes)=>async(dispatch)=>{
+    const formData = new FormData();
+    formData.append('title',classes.title);
+    formData.append('nameWeapon',classes.nameWeapon);
+    formData.append('owner',classes.owner);
+    formData.append('image',classes.image);
+    formData.append('public',classes.public);
     try {
-        const { data } = await api.createClasses(classes);
+        const { data } = await api.createClasses(formData);
         if(data.public){
             dispatch({
                 type:CREATE,
