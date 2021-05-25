@@ -10,7 +10,10 @@ const classesSchema = new Schema({
     
     owner: { type: String, trim: true, unique: false, required: true },
     mode: { type : String, trim: true, unique: false, required: false,default:'Warzone'},
-    image: { type: String, trim: true, unique: false, required: true},
+    image: {
+        path:{ type: String, trim: true, unique: false, required: true},
+        name:{ type: String, trim: true, unique: false, required: true }
+    },
     public: { type: Boolean, required: true},
     likes : { type: [String], trim: true, unique: false, required: false, default:[]},
     reports : { type: [String], trim: true, unique: false, required: false, default: [] }

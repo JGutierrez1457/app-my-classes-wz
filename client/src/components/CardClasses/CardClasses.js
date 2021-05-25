@@ -18,6 +18,10 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 
 function CardClasses({ classItem, onClickDelete, setIdClassEdit,onClickLike, isOwn, showPrivacity }) {
+    let API_URL='';
+if(process.env.NODE_ENV!=='production'){
+    API_URL=process.env.REACT_APP_API_URL;
+}
     const classes = useStyle();
     const [openZoom, setOpenZoom] = useState(false);
     const [hiddeSpeedDial, setHiddeSpeedDial] = useState(true);
@@ -91,13 +95,12 @@ function CardClasses({ classItem, onClickDelete, setIdClassEdit,onClickLike, isO
                                 </IconButton>
                             }
                         />
-                        <CardMedia title={classItem.title} image={classItem.image} className={classes.zoomImageClass} />
+                        <CardMedia title={classItem.title} image={API_URL+'/'+classItem.image.path} className={classes.zoomImageClass} />
                     </Card>
                 </Grid>
             </Grid>
         </Container>
     )
-
     return (
         <>
             <Card style={{ position: 'relative' }} >
@@ -106,7 +109,7 @@ function CardClasses({ classItem, onClickDelete, setIdClassEdit,onClickLike, isO
                     onMouseMove={handleHiddeSpeedDial(false)}
                 >
                     <CardActionArea onClick={handleOpenZoom} innerRef={myRef}>
-                        <CardMedia image={classItem.image}
+                        <CardMedia image={API_URL+'/'+classItem.image.path}
                             title={classItem.title} className={classes.imageClass} />
                     </CardActionArea>
                     {token && <SpeedDial className={classes.moreHoriz}

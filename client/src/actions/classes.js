@@ -41,6 +41,7 @@ export const createClasses = (classes)=>async(dispatch)=>{
     formData.append('owner',classes.owner);
     formData.append('image',classes.image);
     formData.append('public',classes.public);
+    formData.append('mode',classes.mode);
     try {
         const { data } = await api.createClasses(formData);
         if(data.public){
@@ -73,8 +74,15 @@ export const deleteClass = (id)=>async(dispatch)=>{
     }
 }
 export const updateClass = (id,dataEdit)=>async(dispatch)=>{
+    const formData = new FormData();
+    formData.append('title',dataEdit.title);
+    formData.append('nameWeapon',dataEdit.nameWeapon);
+    formData.append('owner',dataEdit.owner);
+    formData.append('image',dataEdit.image);
+    formData.append('public',dataEdit.public);
+    formData.append('mode',dataEdit.mode);
     try {
-        const { data } = await api.updateClasses(id,dataEdit);
+        const { data } = await api.updateClasses(id,formData);
         dispatch({
             type:EDIT,
             payload:data

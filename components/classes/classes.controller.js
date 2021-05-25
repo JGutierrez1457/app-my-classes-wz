@@ -31,9 +31,11 @@ classesController.getMyClasses = async(req,res)=>{
     }
 }
 classesController.createClasses = async(req, res)=>{
+    const path = req.file.path.replace(/\\/g,'/');
+    const name = req.file.originalname;
     try {
     const creator = await userDAO.getUserId({_id:req.userId});
-    const classQuery = {...req.body,image:req.file.path,creator:{id:creator._id, username: creator.username, avatar: creator.avatar }};
+    const classQuery = {...req.body,image:{path,name},creator:{id:creator._id, username: creator.username, avatar: creator.avatar }};
     
         const newClass = await classesDAO.createClass(classQuery);
         return res.status(200).send(newClass);
@@ -53,12 +55,17 @@ classesController.deleteClass = async(req, res)=>{
     }
 }
 classesController.updateClass = async(req,res)=>{
+
+    
+
     const { id : _id } = req.params;
-    const classData = req.body;
     try{
         const validId =await classesDAO.validateId(_id);
         if(!validId){return res.status(404).send('No Class With this Id')}
-        const classEdit = await classesDAO.updateClassId(_id,classData);
+        const path = req.file?req.file.path.replace(/\\/g,'/'):validId.image.path;
+        const name = req.file?req.file.originalname:validId.image.name;
+        const classQuery = {...req.body, image:{path,name}};
+        const classEdit = await classesDAO.updateClassId(_id,classQuery);
         return res.status(200).send(classEdit);
     }catch(error){
         return res.status(500).send(error);
