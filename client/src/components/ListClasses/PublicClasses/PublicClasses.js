@@ -47,7 +47,7 @@ function PublicClasses({ title, setIdClassEdit, isOwn, stateClasses,OnFetchClass
                             <CCardClasses classItem={classes} setIdClassEdit={setIdClassEdit} showPrivacity={isOwn} />
                                 </Grid>
                     }else{
-                        return <Grid key={classes._id} item xs={12} sm={4} innerRef={lastClassElementRef} >
+                        return <Grid key={classes._id} item xs={12} sm={4} >
                         <CCardClasses classItem={classes} setIdClassEdit={setIdClassEdit} showPrivacity={isOwn} />
                             </Grid>
                     }

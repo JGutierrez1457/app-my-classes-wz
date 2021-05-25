@@ -1,6 +1,8 @@
 import {
     Card, CardActionArea, CardActions, CardContent, CardMedia, Typography,
-    Button, Modal, Grid, Container, IconButton, CardHeader, useMediaQuery, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Avatar, Divider
+    Button, Modal, Grid, Container, IconButton, CardHeader, useMediaQuery, 
+    useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, 
+    DialogActions, Avatar, Divider
 } from '@material-ui/core'
 import { SpeedDial, SpeedDialAction } from '@material-ui/lab'
 import React, { useEffect, useRef, useState } from 'react'
@@ -202,13 +204,13 @@ if(process.env.NODE_ENV!=='production'){
                 <CardActions className={classes.classActions}>
                     <Grid container spacing={0}>
                         <Grid item xs={6}>
-                        <IconButton  className={classes.avatarButton}>
+                        <IconButton  className={classes.avatarButton}
+                            component={Link}
+                            to={`/users/${classItem.creator.username}`} >
                         <Avatar
                             className={classes.avatarCreator}
                             alt={classItem.creator.username}
                             src={classItem.creator.avatar}
-                            component={Link}
-                            to='/'
                             title={classItem.creator.username}
                         />
                         <Typography variant='h6' className={classes.avatarNameCreator}>{classItem.creator.username}</Typography>

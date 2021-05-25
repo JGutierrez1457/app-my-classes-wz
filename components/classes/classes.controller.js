@@ -33,9 +33,9 @@ classesController.getMyClasses = async(req,res)=>{
 }
 
 classesController.getUserClasses = async(req, res)=>{
-    const { id } = req.params;
+    const { username } = req.params;
     try {
-        const classes = await classesDAO.getManyClasses({'creator.id':id,public:true},parseInt(req.query.page),parseInt(req.query.limit));
+        const classes = await classesDAO.getManyClasses({'creator.username':username,public:true},parseInt(req.query.page),parseInt(req.query.limit));
         if(!classes){return res.status(404).send('Nothing Classes')}
         return res.status(200).send(classes);
     } catch (error) {

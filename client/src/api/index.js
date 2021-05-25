@@ -15,6 +15,7 @@ API.interceptors.request.use((req)=>{
 
 export const getClasses = (page,cancel)=> API.get(`/api/classes?page=${page}&limit=9`,{cancelToken: cancel});
 export const myClasses = (page,cancel)=> API.get(`/api/classes/myclasses?page=${page}&limit=9`,{cancelToken: cancel});
+export const userClasses = (page,cancel,username)=> API.get(`/api/classes/user/${username}?page=${page}&limit=9`,{cancelToken:cancel});
 export const createClasses = (data)=>API.post(`/api/classes`,data,{ headers:{ 'Content-Type':'multipart/form-data'}});
 export const deleteClasses = (id)=>API.delete(`/api/classes/${id}`);
 export const updateClasses = (id, data )=> API.patch(`/api/classes/${id}`,data,{ headers: { 'Content-Type':'multipart/form-data'}});

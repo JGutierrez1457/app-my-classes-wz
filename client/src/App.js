@@ -9,9 +9,10 @@ import CMyClasses from './containers/ListClasses.js/CMyClasses';
 import CEditClasses from './containers/CEditClasses';
 import CSignIn from './containers/Auth/CSignIn';
 import CSignUp from './containers/Auth/CSignUp';
+import CUserClasses from './containers/ListClasses.js/CUserClasses';
+
 
 import UserSettings from './components/UserSettings/UserSettings';
-
 import NavBar from './components/NavBar/NavBar';
 import MenuDrawer from './components/MenuDrawer/MenuDrawer';
 
@@ -66,6 +67,11 @@ const toogleDrawer = (open)=> (event)=>{
             if(token){return <UserSettings {...props}/>}
             return <Redirect to={{pathname:'/',state:{ from: props.location}}} />
           }}/>
+          <Route path='/users/:username' render = { props =>{
+            return <CUserClasses {...props} />
+          }} 
+          
+          />
 
           <Route render={ ()=><p>Not Found</p>} />
         </Switch>
