@@ -1,5 +1,6 @@
 const classesDAO = require('./classes.dao');
 const userDAO = require('../users/users.dao');
+const fs = require('fs');
 
 const classesController = {}
 
@@ -49,6 +50,7 @@ classesController.deleteClass = async(req, res)=>{
         const validID = await classesDAO.validateId(_id);
         if(!validID){return res.status(404).send('No Class With Id')}
         const classDeleted = await classesDAO.deleteClass(_id);
+        fs.unlinkSync(classDeleted.image.path);
         return res.status(200).send(classDeleted._id);
     } catch (error) {
         return res.status(500).send(error);
@@ -62,10 +64,14 @@ classesController.updateClass = async(req,res)=>{
     try{
         const validId =await classesDAO.validateId(_id);
         if(!validId){return res.status(404).send('No Class With this Id')}
+        const replaceImage = !!req.file;
         const path = req.file?req.file.path.replace(/\\/g,'/'):validId.image.path;
         const name = req.file?req.file.originalname:validId.image.name;
         const classQuery = {...req.body, image:{path,name}};
         const classEdit = await classesDAO.updateClassId(_id,classQuery);
+        if(replaceImage){
+            fs.unlinkSync(validId.image.path);
+        }
         return res.status(200).send(classEdit);
     }catch(error){
         return res.status(500).send(error);
