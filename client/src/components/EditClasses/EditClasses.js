@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import {  useSelector} from 'react-redux';
 import { Paper,Typography,TextField,Button, CardMedia,FormControl, InputLabel, Select,MenuItem, LinearProgress,IconButton } from '@material-ui/core'
 import ImageIcon from '@material-ui/icons/Image';
 import useStyle from './styles'
@@ -20,14 +19,13 @@ function ScrollTop({children}){
     )
 }
 
-function EditClasses({setIdClassEdit,idClassEdit,onClickUpdate}) {
+function EditClasses({setIdClassEdit,idClassEdit,onClickUpdate,classItem}) {
     let API_URL='';
     if(process.env.NODE_ENV!=='production'){
         API_URL=process.env.REACT_APP_API_URL;
     }
-    const classesItems = useSelector( state => state.myclasses);
-    const originalImage = classesItems.find( c => c._id===idClassEdit).image;
-    const [editClass, setEditClass ] = useState(classesItems.find( c => c._id===idClassEdit));
+    const originalImage = classItem.image;
+    const [editClass, setEditClass ] = useState(classItem);
     const [showProgress, setShowProgress] = useState(false);
     const classes = useStyle();
     const history = useHistory();

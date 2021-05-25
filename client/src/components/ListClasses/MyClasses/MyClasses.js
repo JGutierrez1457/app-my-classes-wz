@@ -7,7 +7,7 @@ import AddFabIcon from '@material-ui/icons/Add';
 import useStyle from './styles';
 
 
-function Home({ title, setIdClassEdit, isOwn, stateClasses,OnFetchClasses,onDispatch }) {
+function MyClasses({ title, setIdClassEdit, isOwn, stateClasses,OnFetchClasses,onDispatch }) {
 
     const trigger = useScrollTrigger();
     const token = useSelector(state => state.auth?.authData?.token)
@@ -66,4 +66,4 @@ function Home({ title, setIdClassEdit, isOwn, stateClasses,OnFetchClasses,onDisp
     )
 }
 
-export default Home
+export default MyClasses
