@@ -6,6 +6,7 @@ const upload = require('../../helpers/image-uploader');
 router.get('/',classesController.getPublicClasses);
 router.get('/allclasses',classesController.getAllClasses);
 router.get('/myclasses',auth,classesController.getMyClasses);
+router.get('/user/:id',classesController.getUserClasses);
 
 router.post('/',auth,upload.single('image'),classesController.createClasses);
 

@@ -31,6 +31,17 @@ classesController.getMyClasses = async(req,res)=>{
         return res.status(500).send(error);
     }
 }
+
+classesController.getUserClasses = async(req, res)=>{
+    const { id } = req.params;
+    try {
+        const classes = await classesDAO.getManyClasses({'creator.id':id,public:true},parseInt(req.query.page),parseInt(req.query.limit));
+        if(!classes){return res.status(404).send('Nothing Classes')}
+        return res.status(200).send(classes);
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
 classesController.createClasses = async(req, res)=>{
     const path = req.file.path.replace(/\\/g,'/');
     const name = req.file.originalname;

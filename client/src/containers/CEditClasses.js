@@ -9,7 +9,7 @@ const mapDispatchToProps = (dispatch)=>{
 }
 const mapStateToProps = (state, ownProps)=>{
     return{
-        classItem: state.classes.length>0?state.classes.find( c => c._id===ownProps.idClassEdit):state.myclasses.find( c => c._id===ownProps.idClassEdit),
+        classItem: state.myclasses.length>0?state.myclasses.find( c => c._id===ownProps.idClassEdit):state.classes.find( c => c._id===ownProps.idClassEdit),
         idClass: ownProps.idClass,
         idClassEdit:ownProps.idClassEdit
     }
